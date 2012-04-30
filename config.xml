@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns		= "http://www.w3.org/ns/widgets"
-	xmlns:gap	= "http://phonegap.com/ns/1.0"
-	id		= "com.phonegap.getting.started"
-	version 	= "1.0.0">
+	xmlns:gap		= "http://phonegap.com/ns/1.0"
+	id				= "com.phonegap.getting.started"
+	version 		= "1.0.0">
 
-	<name>PhoneGap: Getting Started</name>
+	<name>TicketMob Box Office</name>
 
-	<description>
-		A template for getting started with PhoneGap development and build.phonegap.com
-	</description>
+	<description>The iPad Box Office for TicketMob clients</description>
 
-	<author href="http://alunny.github.com"
-		email="andrew.lunny@nitobi.com">
-		Andrew Lunny
-	</author>
+	<author href="http://www.ticketmob.com" email="jonah@ticketmob.com">Jonah Fuller</author>
 
 	<icon src="icon.png" gap:role="default" />
 
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>
 
-	<preference name="orientation" value="portrait" />
+	<preference name="orientation" value="landscape" />
 </widget>
