@@ -9,17 +9,20 @@
         <link rel="stylesheet" href="assets/css/master.css" type="text/css" media="screen" />
 
 		<script src="phonegap.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/lawnchair/Lawnchair.js" type="text/javascript" charset="utf-8"></script>
+        <script src="assets/js/lawnchair/adaptors/WebkitSQLiteAdaptor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="assets/js/lawnchair/adaptors/LawnchairAdaptorHelpers.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/lawnchair/adaptors/DOMStorageAdaptor.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/jquery.mobile-1.1.0.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/main.js" type="text/javascript" charset="utf-8"></script>
 
-		<!--<script src="assets/js/xui.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/lawnchair/adaptors/LawnchairAdaptorHelpers.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/lawnchair/adaptors/DOMStorageAdaptor.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/lawnchair/adaptors/WebkitSQLiteAdaptor.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/lawnchair/Lawnchair.js" type="text/javascript" charset="utf-8"></script>-->
-		<!-- <script src="assets/js/dsl.js" type="text/javascript" charset="utf-8"></script> -->
-		<!--<script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--
+        <script src="assets/js/xui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/lawnchair/Lawnchair.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/dsl.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script>
+        -->
 		
 	</head>
 	<body>
@@ -56,11 +59,49 @@
         
         
         
-        <script>
-			$("#loginPage").live("pageinit", function(e) {
-				checkPreAuth();
-			});
-		</script>
+        <!-- Dashboard Page -->
+        <div id="dashboardPage" data-role="page">
+
+            <div data-role="header">
+                <a href="#dashboardPage" data-icon="home">Dashboard</a>
+                <h1>TicketMob Box Office</h1>
+                <a href="#settingsPage" data-icon="gear">Settings</a>
+            </div><!-- /header -->
+        
+            <div data-role="content">	
+                
+                Dashboard
+                	
+            </div><!-- /content -->
+            
+        </div><!-- /Dashboard Page -->
+        
+        
+        
+        
+        
+        
+        <!-- Settings Page -->
+        <div id="settingsPage" data-role="page">
+
+            <div data-role="header">
+                <a href="#dashboardPage" data-icon="home">Dashboard</a>
+                <h1>TicketMob Box Office Settings</h1>
+                <a href="#settingsPage" data-icon="gear">Settings</a>
+            </div><!-- /header -->
+        
+            <div data-role="content">	
+                
+                Settings
+                	
+            </div><!-- /content -->
+            
+        </div><!-- /Settings Page -->
+        
+        
+        
+        
+        
         
 
 	</body>
