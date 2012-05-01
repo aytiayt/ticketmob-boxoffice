@@ -3,13 +3,13 @@ $(document).bind("mobileinit", function() {
     // Make your jQuery Mobile framework configuration changes here!
 	$.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
-	$.mobile.defaultPageTransition = 'flip';
+	$.mobile.defaultPageTransition = 'none';
 });
 
 $(document).ready(function() {
     // For testing
 	$.mobile.allowCrossDomainPages = true;
-	$.mobile.defaultPageTransition = 'flip';
+	$.mobile.defaultPageTransition = 'none';
 	// End for testing
 	
 	
@@ -68,9 +68,11 @@ $(document).ready(function() {
 	
 	$('#loginButton').click(function() {
 		
-		var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=userlogin&username='+$('#username').val()+'&password='+$('#password').val()+'&brandProperty='+$('#brandProperty').val()+'&callback=?'
+		var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=userlogin&username='+$('#username').val()+'&password='+$('#password').val()+'&brandProperty='+$('input[name="brandProperty"]:checked').val()+'&callback=?'
 		
 		$.getJSON(surl, function(data) {
+			
+			console.log(data);
 			
 			if(data.SUCCESS) {
 			
@@ -98,7 +100,7 @@ $(document).ready(function() {
 				
 				$('#password').val('');
 				
-				alert('bad login');
+				showAlert('Login Error','Bad Username/Password','Sorry, the username/password combination you entered was not recognized. Please try again.','back');
 				
 			}
 
@@ -108,7 +110,7 @@ $(document).ready(function() {
 		
 	});
 	
-	$('#logoutButton').click(function() {
+	$('.logoutBtn').click(function() {
 		var data = new Lawnchair('data');
 		data.nuke(function(){
 			$.mobile.changePage($("#loginPage"), { transition: "none"} );
@@ -117,4 +119,13 @@ $(document).ready(function() {
 	
 	
 });
+
+
+var showAlert = function(dataTitle,title,content,dataRel) {
+	$('#alertBox').attr('data-title',dataTitle);
+	$('h3.alert-1','#alertBox').html(title);
+	$('p.alert-2','#alertBox').html(content);
+	$('a.alert-ok','#alertBox').attr('data-rel',dataRel);
+	$.mobile.changePage("#alertBox");
+}
 

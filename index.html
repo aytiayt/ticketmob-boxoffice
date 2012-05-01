@@ -4,7 +4,7 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
 		<title>TicketMob Box Office</title>
 		
-		<link rel="stylesheet" href="assets/css/ticketmob-boxoffice.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="assets/css/ticketmob-theme.min.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="assets/css/jquery.mobile.structure-1.1.0.min.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="assets/css/master.css" type="text/css" media="screen" />
 
@@ -39,26 +39,31 @@
                 <form id="loginForm">
                 
                     <div data-role="fieldcontain">
-                        <label for="brandProperty">Select Brand:</label>
-                        <select name="brandProperty" id="brandProperty">
-                            <option value="TM">TicketMob</option>
-                            <option value="LS">LaughStub</option>
-                            <option value="TS">TuneStub</option>
-                            <option value="ES">ElectroStub</option>
-                        </select>
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <legend>Select Brand:</legend>
+                            <input type="radio" name="brandProperty" id="brandPropertyTM" value="TM" checked="checked" />
+                            <label for="brandPropertyTM" id="brandPropertyTMLabel">TicketMob</label>
+                            <input type="radio" name="brandProperty" id="brandPropertyLS" value="LS"  />
+                            <label for="brandPropertyLS" id="brandPropertyLSLabel">LaughStub</label>
+                            <input type="radio" name="brandProperty" id="brandPropertyTS" value="TS"  />
+                            <label for="brandPropertyTS" id="brandPropertyTSLabel">TuneStub</label>
+                            <input type="radio" name="brandProperty" id="brandPropertyES" value="ES"  />
+                            <label for="brandPropertyES" id="brandPropertyESLabel">ElectroStub</label>
+                        </fieldset>
                     </div>
             
-                    <div data-role="fieldcontain" class="ui-hide-label">
+                    <div data-role="fieldcontain">
                         <label for="username">Username:</label>
                         <input type="text" name="username" id="username" value="" placeholder="Username" />
                     </div>
             
-                    <div data-role="fieldcontain" class="ui-hide-label">
+                    <div data-role="fieldcontain">
                         <label for="password">Password:</label>
                         <input type="password" name="password" id="password" value="" placeholder="Password" />
                     </div>
             
-                    <input type="submit" value="Login" id="loginButton" />
+                    <input type="submit"  name="loginButton" id="loginButton" value="Login" />
+                    
                     
                 </form>
                 	
@@ -67,26 +72,200 @@
         </div><!-- /Login Page -->
         
         
+        <div data-role="dialog" id="alertBox" data-title="">
+            <div data-role="content">
+                <h3 class="alert-1"></h3>
+                <p class="alert-2"></p>
+                <a href="#" class="alert-ok" data-role="button" data-rel="back">OK</a>
+            </div>
+        </div>
+        
+        
+        
+        
+        
         
         
         <!-- Dashboard Page -->
         <div id="dashboardPage" data-role="page">
 
             <div data-role="header">
-                <a href="#dashboardPage" data-icon="home">Dashboard</a>
+                <a href="#" data-icon="home" class="ui-btn-active">Dashboard</a>
                 <h1>TicketMob Box Office</h1>
-                <a href="#settingsPage" data-icon="gear">Settings</a>
+                <a href="" class="logoutBtn" data-icon="delete">Logout</a>
             </div><!-- /header -->
         
             <div data-role="content">	
                 
                 Dashboard
                 
-                <a href="" id="logoutButton">Logout</a>
                 	
             </div><!-- /content -->
             
+            
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li><a href="#sellTicketPage" data-icon="money">Sell Ticket</a></li>
+                        <li><a href="#calendarPage" data-icon="calendar">View Calendar</a></li>
+                        <li><a href="#searchPage" data-icon="search">Search Tickets</a></li>
+                        <li><a href="#reportsPage" data-icon="report">Reports</a></li>
+                        <li><a href="#settingsPage" data-icon="settings">Settings</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+			</div>
+            
+            
         </div><!-- /Dashboard Page -->
+
+
+
+
+
+
+
+        <!-- Sell Ticket -->
+        <div id="sellTicketPage" data-role="page">
+
+            <div data-role="header">
+                <a href="#dashboardPage" data-icon="home">Dashboard</a>
+                <h1>Sell Ticket</h1>
+                <a href="" class="logoutBtn" data-icon="delete">Logout</a>
+            </div><!-- /header -->
+        
+            <div data-role="content">	
+                
+                Sell Ticket
+                	
+            </div><!-- /content -->
+            
+            
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" class="ui-btn-active" data-icon="check">Sell Ticket</a></li>
+                        <li><a href="#calendarPage" data-icon="grid">View Calendar</a></li>
+                        <li><a href="#searchPage" data-icon="search">Search Tickets</a></li>
+                        <li><a href="#reportsPage" data-icon="star">Reports</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+			</div>
+            
+            
+        </div><!-- /Sell Ticket Page -->
+
+
+
+
+
+
+
+        <!-- Calendar -->
+        <div id="calendarPage" data-role="page">
+
+            <div data-role="header">
+                <a href="#dashboardPage" data-icon="home">Dashboard</a>
+                <h1>Shows/Events Calendar</h1>
+                <a href="" class="logoutBtn" data-icon="delete">Logout</a>
+            </div><!-- /header -->
+        
+            <div data-role="content">	
+                
+                Calendar Page
+                	
+            </div><!-- /content -->
+            
+            
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#sellTicketPage" data-icon="check">Sell Ticket</a></li>
+                        <li><a href="#" class="ui-btn-active" data-icon="grid">View Calendar</a></li>
+                        <li><a href="#searchPage" data-icon="search">Search Tickets</a></li>
+                        <li><a href="#reportsPage" data-icon="star">Reports</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+			</div>
+            
+            
+        </div><!-- /Calendar Page -->
+
+
+
+
+
+
+
+        <!-- Search -->
+        <div id="searchPage" data-role="page">
+
+            <div data-role="header">
+                <a href="#dashboardPage" data-icon="home">Dashboard</a>
+                <h1>Search Ticket Holders</h1>
+                <a href="" class="logoutBtn" data-icon="delete">Logout</a>
+            </div><!-- /header -->
+        
+            <div data-role="content">	
+                
+                Search Page
+                	
+            </div><!-- /content -->
+            
+            
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#sellTicketPage" data-icon="check">Sell Ticket</a></li>
+                        <li><a href="#calendarPage" data-icon="grid">View Calendar</a></li>
+                        <li><a href="#" class="ui-btn-active" data-icon="search">Search Tickets</a></li>
+                        <li><a href="#reportsPage" data-icon="star">Reports</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+			</div>
+            
+            
+        </div><!-- /Search Page -->
+
+
+
+
+
+
+
+        <!-- Reports -->
+        <div id="reportsPage" data-role="page">
+
+            <div data-role="header">
+                <a href="#dashboardPage" data-icon="home">Dashboard</a>
+                <h1>Show/Event Reports</h1>
+                <a href="" class="logoutBtn" data-icon="delete">Logout</a>
+            </div><!-- /header -->
+        
+            <div data-role="content">	
+                
+                Reports Page
+                	
+            </div><!-- /content -->
+            
+            
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#sellTicketPage" data-icon="check">Sell Ticket</a></li>
+                        <li><a href="#calendarPage" data-icon="grid">View Calendar</a></li>
+                        <li><a href="#searchPage" data-icon="search">Search Tickets</a></li>
+                        <li><a href="#" class="ui-btn-active" data-icon="star">Reports</a></li>
+                        <li><a href="#settingsPage" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+			</div>
+            
+            
+        </div><!-- /Reports Page -->
+
         
         
         
@@ -99,7 +278,7 @@
             <div data-role="header">
                 <a href="#dashboardPage" data-icon="home">Dashboard</a>
                 <h1>TicketMob Box Office Settings</h1>
-                <a href="#settingsPage" data-icon="gear">Settings</a>
+                <a href="" class="logoutBtn" data-icon="delete">Logout</a>
             </div><!-- /header -->
         
             <div data-role="content">	
@@ -107,6 +286,18 @@
                 Settings
                 	
             </div><!-- /content -->
+
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#sellTicketPage" data-icon="check">Sell Ticket</a></li>
+                        <li><a href="#calendarPage" data-icon="grid">View Calendar</a></li>
+                        <li><a href="#searchPage" data-icon="search">Search Tickets</a></li>
+                        <li><a href="#reportsPage" data-icon="star">Reports</a></li>
+                        <li><a href="#" class="ui-btn-active" data-icon="gear">Settings</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+			</div>
             
         </div><!-- /Settings Page -->
         
