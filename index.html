@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
@@ -9,23 +9,23 @@
         <link rel="stylesheet" href="assets/css/master.css" type="text/css" media="screen" />
 
 		<script src="phonegap.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/xui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/jquery.mobile-1.1.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/main.js" type="text/javascript" charset="utf-8"></script>
+
+		<!--<script src="assets/js/xui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/lawnchair/adaptors/LawnchairAdaptorHelpers.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/lawnchair/adaptors/DOMStorageAdaptor.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/lawnchair/adaptors/WebkitSQLiteAdaptor.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/lawnchair/Lawnchair.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/dsl.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/jquery.mobile-1.1.0.min.js" type="text/javascript" charset="utf-8"></script>
-		
+		<script src="assets/js/lawnchair/Lawnchair.js" type="text/javascript" charset="utf-8"></script>-->
+		<!-- <script src="assets/js/dsl.js" type="text/javascript" charset="utf-8"></script> -->
 		<!--<script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script>-->
 		
 	</head>
 	<body>
     
- 		
         <!-- Login Page -->
-        <div data-role="page" id="login">
+        <div id="loginPage" data-role="page">
 
             <div data-role="header">
                 <h1>Login</h1>
@@ -33,24 +33,34 @@
         
             <div data-role="content">	
                 
-                <fieldset>
-                	<form>
-                    	<label for="username">Username:</label>
-                        <input type="text" name="username" id="username" value="" />
+                <form id="loginForm">
+                
+                    <div data-role="fieldcontain" class="ui-hide-label">
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" id="username" value="" placeholder="Username" />
+                    </div>
+            
+                    <div data-role="fieldcontain" class="ui-hide-label">
                         <label for="password">Password:</label>
-                        <input type="password" name="password" id="password" value="" />
-                        <a href="#" data-role="button" data-inline="true">Login</a>
-                    </form>
-                </fieldset>
+                        <input type="password" name="password" id="password" value="" placeholder="Password" />
+                    </div>
+            
+                    <input type="submit" value="Login" id="submitButton">
+                    
+                </form>
                 	
             </div><!-- /content -->
-        
+            
         </div><!-- /Login Page -->
         
         
         
         
-        
+        <script>
+			$("#loginPage").live("pageinit", function(e) {
+				checkPreAuth();
+			});
+		</script>
         
 
 	</body>
