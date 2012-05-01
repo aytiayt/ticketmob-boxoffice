@@ -68,7 +68,6 @@ $(document).ready(function() {
 	
 	$('#loginButton').click(function() {
 		
-		
 		var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=userlogin&username='+$('#username').val()+'&password='+$('#password').val()+'&brandProperty='+$('#brandProperty').val()+'&callback=?'
 		
 		$.getJSON(surl, function(data) {
@@ -90,17 +89,22 @@ $(document).ready(function() {
 				var data = new Lawnchair('data');
 				
 				data.save(settings,function(){
+					$('#username').val('');
+					$('#password').val('');
 					$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
 				});
 			
 			} else {
+				
+				$('#password').val('');
 				
 				alert('bad login');
 				
 			}
 
 		});	
-
+		
+		return false;
 		
 	});
 	
