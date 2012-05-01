@@ -7,8 +7,12 @@ $(document).bind("mobileinit", function() {
 });
 
 $(document).ready(function() {
-    $.mobile.allowCrossDomainPages = true;
+    // For testing
+	$.mobile.allowCrossDomainPages = true;
 	$.mobile.defaultPageTransition = 'flip';
+	// End for testing
+	
+	
 	// create a store
 	var data = new Lawnchair('data');
 
@@ -52,11 +56,61 @@ $(document).ready(function() {
 				
 				$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
 
-			})
+			});
 			
 		}
 		
 	});
+	
+	
+	
+	
+	
+	$('#loginButton').click(function() {
+		
+		
+		var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=userlogin&username='+$('#username').val()+'&password='+$('#password').val()+'&brandProperty='+$('#brandProperty').val()+'&callback=?'
+		
+		$.getJSON(surl, function(data) {
+			
+			if(data.SUCCESS) {
+			
+				var settings = { 
+					key: 'settings', 
+					brandProperty: data.BRANDPROPERTY, 
+					datasource: data.DATASOURCE, 
+					userID: data.USERID, 
+					firstName: data.FIRSTNAME, 
+					lastName: data.LASTNAME, 
+					emailAddress: data.EMAILADDRESS, 
+					userType: data.USERTYPE, 
+					venueID: data.VENUEID, 
+					venueName: data.VENUENAME };
+					
+				var data = new Lawnchair('data');
+				
+				data.save(settings,function(){
+					$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
+				});
+			
+			} else {
+				
+				alert('bad login');
+				
+			}
+
+		});	
+
+		
+	});
+	
+	$('#logoutButton').click(function() {
+		var data = new Lawnchair('data');
+		data.nuke(function(){
+			$.mobile.changePage($("#loginPage"), { transition: "none"} );
+		});
+	});
+	
 	
 });
 

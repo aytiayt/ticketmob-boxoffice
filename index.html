@@ -38,6 +38,16 @@
                 
                 <form id="loginForm">
                 
+                    <div data-role="fieldcontain">
+                        <label for="brandProperty">Select Brand:</label>
+                        <select name="brandProperty" id="brandProperty">
+                            <option value="TM">TicketMob</option>
+                            <option value="LS">LaughStub</option>
+                            <option value="TS">TuneStub</option>
+                            <option value="ES">ElectroStub</option>
+                        </select>
+                    </div>
+            
                     <div data-role="fieldcontain" class="ui-hide-label">
                         <label for="username">Username:</label>
                         <input type="text" name="username" id="username" value="" placeholder="Username" />
@@ -48,7 +58,7 @@
                         <input type="password" name="password" id="password" value="" placeholder="Password" />
                     </div>
             
-                    <input type="submit" value="Login" id="submitButton">
+                    <input type="button" value="Login" id="loginButton" />
                     
                 </form>
                 	
@@ -71,6 +81,8 @@
             <div data-role="content">	
                 
                 Dashboard
+                
+                <a href="" id="logoutButton">Logout</a>
                 	
             </div><!-- /content -->
             
