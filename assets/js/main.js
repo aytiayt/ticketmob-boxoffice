@@ -1,47 +1,62 @@
-function init() {
-	document.addEventListener("deviceready", deviceReady, true);
-	delete init;
-}
 
+$(document).bind("mobileinit", function() {
+    // Make your jQuery Mobile framework configuration changes here!
+	$.support.cors = true;
+    $.mobile.allowCrossDomainPages = true;
+	$.mobile.defaultPageTransition = 'flip';
+});
 
-function checkPreAuth() {
-    var form = $("#loginForm");
-    if(window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
-        $("#username", form).val(window.localStorage["username"]);
-        $("#password", form).val(window.localStorage["password"]);
-        handleLogin();
-    }
-}
+$(document).ready(function() {
+    $.mobile.allowCrossDomainPages = true;
+	$.mobile.defaultPageTransition = 'flip';
+	// create a store
+	var data = new Lawnchair('data');
 
+	// look to see if brand property and userid are stored in local store already, if so, we can log the person in and skip login.
+	data.get('settings',function(result) {
+		var doLogin = true;
+		if(result) {
+			//console.log(result.userID);
+			//console.log(result.brandProperty);
+			if(result.userID > 0 && result.brandProperty.length > 0) {
+				doLogin = false;
+			}
+		}
+		
+		if(doLogin) {
 
-function handleLogin() {
-    var form = $("#loginForm");    
-    //disable the button so we can't resubmit while we wait
-    $("#submitButton",form).attr("disabled","disabled");
-    var u = $("#username", form).val();
-    var p = $("#password", form).val();
-    console.log("click");
-    if(u != '' && p!= '') {
-        $.post("http://www.ticketmob.com/ipadbo/service.cfc?method=login&returnformat=json", {username:u,password:p}, function(res) {
-            if(res == true) {
-                //store
-                window.localStorage["username"] = u;
-                window.localStorage["password"] = p;             
-                $.mobile.changePage("some.html");
-            } else {
-                navigator.notification.alert("Your login failed", function() {});
-            }
-         $("#submitButton").removeAttr("disabled");
-        },"json");
-    } else {
-        navigator.notification.alert("You must enter a username and password", function() {});
-        $("#submitButton").removeAttr("disabled");
-    }
-    return false;
-}
+			// Go to Login Screen
+			$.mobile.changePage($("#loginPage"), { transition: "none"} );
 
+		} else {
+			
+			// Log in the user
+			var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=userinfo&userID='+result.userID+'&brandProperty='+result.brandProperty+'&callback=?'
+			$.getJSON(surl, function(data) {
+				
+				console.log(data);
+				
+				var settings = { 
+					key: 'settings', 
+					brandProperty: data.BRANDPROPERTY, 
+					datasource: data.DATASOURCE, 
+					userID: data.USERID, 
+					firstName: data.FIRSTNAME, 
+					lastName: data.LASTNAME, 
+					emailAddress: data.EMAILADDRESS, 
+					userType: data.USERTYPE, 
+					venueID: data.VENUEID, 
+					venueName: data.VENUENAME };
+				
+				//data.save(settings);
+				
+				$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
 
-function deviceReady() {
-	$("#loginForm").on("submit",handleLogin);
-}
+			})
+			
+		}
+		
+	});
+	
+});
 
