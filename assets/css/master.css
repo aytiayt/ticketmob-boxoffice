@@ -14,3 +14,26 @@
 
 
 
+
+
+
+/* Show Overview */
+ul.showOverview { list-style: none; margin: 0; padding: 0; display: block; width: 100%; }
+ul.showOverview li.showHolder { width: 25%; float: left; overflow: hidden; }
+ul.showOverview li.showHolder div.showContent { height: 590px; background: #e8e8e8; border-radius: 5px; box-shadow: 0 0 10px #d0d0d0 inset; padding: 15px; margin: 10px; }
+ul.showOverview li.showHolder div.showContent div.header { position: relative; }
+ul.showOverview li.showHolder div.showContent div.header span { display: block; }
+ul.showOverview li.showHolder div.showContent div.header span.poster { width: 80px; height: 100px; overflow: hidden; float: left; }
+ul.showOverview li.showHolder div.showContent div.header span.poster img { border: 1px solid #9f9f9f; width: 78px; }
+ul.showOverview li.showHolder div.showContent div.header span.datetime { margin: 0 0 0 90px; }
+ul.showOverview li.showHolder div.showContent div.header span.datetime span.date { font-size: 24px; color: #5e5e5e; font-weight: normal; text-transform: uppercase; }
+ul.showOverview li.showHolder div.showContent div.header span.datetime span.time { font-size: 18px; color: #5e5e5e; font-weight: normal; text-transform: uppercase; }
+ul.showOverview li.showHolder div.showContent div.header span.title { clear: left; }
+ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList { list-style: none; margin: 0; padding: 0; display: block; width: 100%; }
+ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li { display: block; }
+ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.ticketinfo { display: block; padding: 0 20px 10px 20px; }
+ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.ticketinfo span.ticketprice { display: block; float: left; width: 50%; font-weight: bold; }
+ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.ticketinfo span.availabletickets { display: block; margin-left: 50%; text-align: right; }
+
+
+

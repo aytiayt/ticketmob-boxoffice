@@ -7,17 +7,34 @@ $(document).bind("mobileinit", function() {
 });
 
 $(document).ready(function() {
-    // For testing
+    
+	// For testing since there is no mobileinit on desktop
+	$.support.cors = true;
 	$.mobile.allowCrossDomainPages = true;
 	$.mobile.defaultPageTransition = 'none';
 	// End for testing
+	
+	
+	// Local jQuery data structs for app
+	$.boxofficeUser = {};
+	$.boxofficeUser.brandProperty = "";
+	$.boxofficeUser.datasource = "";
+	$.boxofficeUser.userID = 0;
+	$.boxofficeUser.firstName = "";
+	$.boxofficeUser.lastName = "";
+	$.boxofficeUser.emailAddress = "";
+	$.boxofficeUser.userType = 0;
+	$.boxofficeUser.venueID = 0;
+	$.boxofficeUser.venueName = "";
+	$.boxofficeUser.venuesOwned = "";
+					
 	
 	
 	// create a store
 	var data = new Lawnchair('data');
 
 	// look to see if brand property and userid are stored in local store already, if so, we can log the person in and skip login.
-	data.get('settings',function(result) {
+	data.get('user',function(result) {
 		var doLogin = true;
 		if(result) {
 			//console.log(result.userID);
@@ -35,13 +52,31 @@ $(document).ready(function() {
 		} else {
 			
 			// Log in the user
-			var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=userinfo&userID='+result.userID+'&brandProperty='+result.brandProperty+'&callback=?'
+			var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=userinfo&userID='+result.userID+'&brandProperty='+result.brandProperty+'&callback=?';
 			$.getJSON(surl, function(data) {
 				
-				console.log(data);
+				//console.log(data);
 				
-				var settings = { 
-					key: 'settings', 
+				$.boxofficeUser.brandProperty = data.BRANDPROPERTY;
+				$.boxofficeUser.datasource = data.DATASOURCE;
+				$.boxofficeUser.userID = data.USERID;
+				$.boxofficeUser.firstName = data.FIRSTNAME;
+				$.boxofficeUser.lastName = data.LASTNAME;
+				$.boxofficeUser.emailAddress = data.EMAILADDRESS;
+				$.boxofficeUser.userType = data.USERTYPE;
+				$.boxofficeUser.venueID = data.VENUEID;
+				$.boxofficeUser.venueName = data.VENUENAME;
+				$.boxofficeUser.venuesOwned = data.VENUESOWNED;
+
+				// set all the venue and user name display
+				defaultAllPages();
+				
+				
+				populateUserFields();
+
+				// Store in Lawnchair
+				var user = { 
+					key: 'user', 
 					brandProperty: data.BRANDPROPERTY, 
 					datasource: data.DATASOURCE, 
 					userID: data.USERID, 
@@ -50,11 +85,12 @@ $(document).ready(function() {
 					emailAddress: data.EMAILADDRESS, 
 					userType: data.USERTYPE, 
 					venueID: data.VENUEID, 
-					venueName: data.VENUENAME };
+					venueName: data.VENUENAME,
+					venuesOwned: data.VENUESOWNED };
 				
-				//data.save(settings);
-				
-				$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
+				data.save(user,function(){
+					$.mobile.changePage($("#dashboardPage"), { transition: "none"} );	
+				});
 
 			});
 			
@@ -68,16 +104,31 @@ $(document).ready(function() {
 	
 	$('#loginButton').click(function() {
 		
-		var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=userlogin&username='+$('#username').val()+'&password='+$('#password').val()+'&brandProperty='+$('input[name="brandProperty"]:checked').val()+'&callback=?'
+		var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=userlogin&username='+$('#username').val()+'&password='+$('#password').val()+'&brandProperty='+$('input[name="brandProperty"]:checked').val()+'&callback=?';
 		
 		$.getJSON(surl, function(data) {
 			
-			console.log(data);
+			//console.log(data);
 			
 			if(data.SUCCESS) {
 			
-				var settings = { 
-					key: 'settings', 
+				$.boxofficeUser.brandProperty = data.BRANDPROPERTY;
+				$.boxofficeUser.datasource = data.DATASOURCE;
+				$.boxofficeUser.userID = data.USERID;
+				$.boxofficeUser.firstName = data.FIRSTNAME;
+				$.boxofficeUser.lastName = data.LASTNAME;
+				$.boxofficeUser.emailAddress = data.EMAILADDRESS;
+				$.boxofficeUser.userType = data.USERTYPE;
+				$.boxofficeUser.venueID = data.VENUEID;
+				$.boxofficeUser.venueName = data.VENUENAME;
+				$.boxofficeUser.venuesOwned = data.VENUESOWNED;
+
+				// set all the venue and user name display
+				populateUserFields();
+
+				// Store in Lawnchair
+				var user = { 
+					key: 'user', 
 					brandProperty: data.BRANDPROPERTY, 
 					datasource: data.DATASOURCE, 
 					userID: data.USERID, 
@@ -86,11 +137,12 @@ $(document).ready(function() {
 					emailAddress: data.EMAILADDRESS, 
 					userType: data.USERTYPE, 
 					venueID: data.VENUEID, 
-					venueName: data.VENUENAME };
+					venueName: data.VENUENAME,
+					venuesOwned: data.VENUESOWNED };
 					
 				var data = new Lawnchair('data');
 				
-				data.save(settings,function(){
+				data.save(user,function(){
 					$('#username').val('');
 					$('#password').val('');
 					$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
@@ -121,6 +173,7 @@ $(document).ready(function() {
 });
 
 
+
 var showAlert = function(dataTitle,title,content,dataRel) {
 	$('#alertBox').attr('data-title',dataTitle);
 	$('h3.alert-1','#alertBox').html(title);
@@ -128,4 +181,38 @@ var showAlert = function(dataTitle,title,content,dataRel) {
 	$('a.alert-ok','#alertBox').attr('data-rel',dataRel);
 	$.mobile.changePage("#alertBox");
 }
+
+
+
+var populateUserFields = function() {
+	$('span.venueName').html($.boxofficeUser.venueName);
+	$('span.userFirstName').html($.boxofficeUser.firstName);
+	$('span.userLastName').html($.boxofficeUser.lastName);
+	$('span.userEmail').html($.boxofficeUser.emailAddress);
+}
+
+
+
+var defaultAllPages = function() {
+	// set the default page views
+	defaultDashboard();
+}
+
+
+
+var defaultDashboard = function() {
+
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=dashboardcontent&venueID='+$.boxofficeUser.venueID+'&datasource='+$.boxofficeUser.datasource+'&brandProperty='+$.boxofficeUser.brandProperty+'&callback=?';
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			$('#dashboardPageContent').html(data.HTML);
+		}
+	});
+	
+}
+
+
+
+
+
 
