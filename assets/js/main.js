@@ -28,6 +28,24 @@ $(document).ready(function() {
 	$.boxofficeUser.venueName = "";
 	$.boxofficeUser.venuesOwned = "";
 					
+					
+	if (navigator.userAgent.indexOf("Firefox")!=-1) {
+		/* For Firefox Testing */	
+		$.boxofficeUser.brandProperty = "LS";
+		$.boxofficeUser.datasource = "LaughStub";
+		$.boxofficeUser.userID = 13673662;
+		$.boxofficeUser.firstName = "Pathik";
+		$.boxofficeUser.lastName = "Shah";
+		$.boxofficeUser.emailAddress = "pathik@abstraktdesigns.com";
+		$.boxofficeUser.userType = 3;
+		$.boxofficeUser.venueID = 277;
+		$.boxofficeUser.venueName = "LS Test Venue";
+		$.boxofficeUser.venuesOwned = "";
+		defaultAllPages();
+		populateUserFields();
+		$.mobile.changePage($("#dashboardPage"), { transition: "none"} );	
+	}
+
 	
 	
 	// create a store
@@ -74,6 +92,7 @@ $(document).ready(function() {
 				
 				populateUserFields();
 
+				/*
 				// Store in Lawnchair
 				var user = { 
 					key: 'user', 
@@ -88,9 +107,10 @@ $(document).ready(function() {
 					venueName: data.VENUENAME,
 					venuesOwned: data.VENUESOWNED };
 				
-				data.save(user,function(){
-					$.mobile.changePage($("#dashboardPage"), { transition: "none"} );	
-				});
+				data.save(user,function(){});
+				*/
+				
+				$.mobile.changePage($("#dashboardPage"), { transition: "none"} );	
 
 			});
 			
@@ -213,6 +233,22 @@ var defaultDashboard = function() {
 
 
 
+var showInfo = function(showTimingID) {
+	
+	$('#alertBox').attr('data-title','');
+	$('h3.alert-1','#alertBox').html('Show/Event Information');
+	$('p.alert-2','#alertBox').html('');
+	$('a.alert-ok','#alertBox').attr('data-rel','back').hide();
+	$.mobile.changePage("#alertBox");
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=showinfo&showTimingID='+showTimingID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			$('p.alert-2','#alertBox').html(data.HTML);
+			$('a.alert-ok','#alertBox').show();
+		}
+	});
+	
+}
 
 
 

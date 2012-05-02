@@ -3,13 +3,13 @@
 
 /* footer icons */
 .ui-footer-fixed .ui-navbar .ui-btn-inner { height: 48px; padding-left: 48px; }
-.ui-footer-fixed .ui-navbar .ui-icon { width: 48px; height: 48px; background-color: transparent; background: url(../img/TabBarIcons.png); }
+.ui-footer-fixed .ui-navbar .ui-icon { width: 48px; height: 48px; background-color: transparent; background: url(../img/TabBarIcons.png) no-repeat; }
 .ui-footer-fixed .ui-navbar .ui-btn-icon-left .ui-btn-inner .ui-icon { margin: 0; top: auto; box-shadow: none; }
-.ui-footer-fixed .ui-navbar .ui-icon-money { background-position: -58px -489px; }
-.ui-footer-fixed .ui-navbar .ui-icon-calendar { background-position: -346px -563px; }
-.ui-footer-fixed .ui-navbar .ui-icon-search { background-position: -635px -201px; }
-.ui-footer-fixed .ui-navbar .ui-icon-report { background-position: -636px -416px; }
-.ui-footer-fixed .ui-navbar .ui-icon-settings { background-position: -203px -57px; }
+.ui-footer-fixed .ui-navbar .ui-icon-sell { background-position: -25px 4px; }
+.ui-footer-fixed .ui-navbar .ui-icon-calendar { background-position: -126px 4px; }
+.ui-footer-fixed .ui-navbar .ui-icon-search { background-position: -226px 4px; }
+.ui-footer-fixed .ui-navbar .ui-icon-report { background-position: -327px 4px; }
+.ui-footer-fixed .ui-navbar .ui-icon-settings { background-position: -426px 4px; }
 .ui-footer-fixed .ui-navbar .ui-btn-text { line-height: 48px; font-size: 18px; }
 
 
@@ -20,18 +20,19 @@
 /* Show Overview */
 ul.showOverview { list-style: none; margin: 0; padding: 0; display: block; width: 100%; }
 ul.showOverview li.showHolder { width: 25%; float: left; overflow: hidden; }
-ul.showOverview li.showHolder div.showContent { height: 590px; background: #e8e8e8; border-radius: 5px; box-shadow: 0 0 10px #d0d0d0 inset; padding: 15px; margin: 10px; }
-ul.showOverview li.showHolder div.showContent div.header { position: relative; }
+ul.showOverview li.showHolder div.showContent { height: 580px; background: #e8e8e8; border-radius: 5px; box-shadow: 0 0 10px #d0d0d0 inset; padding: 15px; margin: 10px; }
+ul.showOverview li.showHolder div.showContent div.header { position: relative; border-bottom: 1px dashed #aaa; }
 ul.showOverview li.showHolder div.showContent div.header span { display: block; }
-ul.showOverview li.showHolder div.showContent div.header span.poster { width: 80px; height: 100px; overflow: hidden; float: left; }
-ul.showOverview li.showHolder div.showContent div.header span.poster img { border: 1px solid #9f9f9f; width: 78px; }
-ul.showOverview li.showHolder div.showContent div.header span.datetime { margin: 0 0 0 90px; }
+ul.showOverview li.showHolder div.showContent div.header span.poster { width: 78px; height: 93px; padding: 1px; overflow: hidden; float: left; background: #9f9f9f; }
+ul.showOverview li.showHolder div.showContent div.header span.poster img { width: 78px; }
+ul.showOverview li.showHolder div.showContent div.header span.datetime { margin: 0 0 0 90px; height: 100px; }
 ul.showOverview li.showHolder div.showContent div.header span.datetime span.date { font-size: 24px; color: #5e5e5e; font-weight: normal; text-transform: uppercase; }
 ul.showOverview li.showHolder div.showContent div.header span.datetime span.time { font-size: 18px; color: #5e5e5e; font-weight: normal; text-transform: uppercase; }
-ul.showOverview li.showHolder div.showContent div.header span.title { clear: left; }
+ul.showOverview li.showHolder div.showContent div.header span.title { clear: left; font-weight: bold; color: #cb492f; font-size: 16px; height: 55px; line-height: 18px; overflow: hidden; }
+ul.showOverview li.showHolder div.showContent div.tickets { overflow: auto; height: 365px; }
 ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList { list-style: none; margin: 0; padding: 0; display: block; width: 100%; }
 ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li { display: block; }
-ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.ticketinfo { display: block; padding: 0 20px 10px 20px; }
+ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.ticketinfo { display: block; padding: 0 10px 3px 10px; }
 ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.ticketinfo span.ticketprice { display: block; float: left; width: 50%; font-weight: bold; }
 ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.ticketinfo span.availabletickets { display: block; margin-left: 50%; text-align: right; }
 
