@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap		= "http://phonegap.com/ns/1.0"
-	id				= "com.phonegap.getting.started"
+	id				= "com.ticketmob.boxoffice"
 	version 		= "1.0.0">
 
 	<name>TicketMob Box Office</name>
@@ -10,10 +10,18 @@
 
 	<author href="http://www.ticketmob.com" email="jonah@ticketmob.com">Jonah Fuller</author>
 
-	<icon src="icon.png" gap:role="default" />
+	<icon src="assets/img/icon.png" width="57" height="57" />
+	<icon src="assets/img/icon-72.png" gap:platform="ios" width="72" height="72" />
+	<icon src="assets/img/icon-114.png" width="114" height="114" />
 
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>
 
 	<preference name="orientation" value="landscape" />
+	<preference name="webviewbounce" value="false" />
+	<preference name="stay-in-webview" value="true" />
+	<preference name="target-device" value="tablet" />
+	
+	<gap:splash src="assets/img/splash.png" width="1024" height="768" />
+	
 </widget>
