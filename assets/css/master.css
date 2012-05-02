@@ -2,14 +2,15 @@
 
 
 /* footer icons */
-.ui-footer-fixed .ui-btn-inner { height: 48px; padding-left: 48px; }
-.ui-footer-fixed .ui-icon { width: 48px; height: 48px; background-color: transparent; background: url(../img/TabBarIcons.png); }
-.ui-footer-fixed .ui-btn-icon-left .ui-btn-inner .ui-icon { margin: 0; top: auto; box-shadow: none; }
-.ui-footer-fixed .ui-icon-money { background-position: -58px -489px; }
-.ui-footer-fixed .ui-icon-calendar { background-position: -58px -489px; }
-.ui-footer-fixed .ui-icon-search { background-position: -638px -208px; }
-.ui-footer-fixed .ui-icon-report { background-position: -641px -421px; }
-.ui-footer-fixed .ui-icon-settings { background-position: -205px -63px; }
+.ui-footer-fixed .ui-navbar .ui-btn-inner { height: 48px; padding-left: 48px; }
+.ui-footer-fixed .ui-navbar .ui-icon { width: 48px; height: 48px; background-color: transparent; background: url(../img/TabBarIcons.png); }
+.ui-footer-fixed .ui-navbar .ui-btn-icon-left .ui-btn-inner .ui-icon { margin: 0; top: auto; box-shadow: none; }
+.ui-footer-fixed .ui-navbar .ui-icon-money { background-position: -58px -489px; }
+.ui-footer-fixed .ui-navbar .ui-icon-calendar { background-position: -346px -563px; }
+.ui-footer-fixed .ui-navbar .ui-icon-search { background-position: -635px -201px; }
+.ui-footer-fixed .ui-navbar .ui-icon-report { background-position: -636px -416px; }
+.ui-footer-fixed .ui-navbar .ui-icon-settings { background-position: -203px -57px; }
+.ui-footer-fixed .ui-navbar .ui-btn-text { line-height: 48px; font-size: 18px; }
 
 
 
