@@ -89,7 +89,6 @@ $(document).ready(function() {
 				// set all the venue and user name display
 				defaultAllPages();
 				
-				
 				populateUserFields();
 
 				/*
@@ -144,6 +143,8 @@ $(document).ready(function() {
 				$.boxofficeUser.venuesOwned = data.VENUESOWNED;
 
 				// set all the venue and user name display
+				defaultAllPages();
+				
 				populateUserFields();
 
 				// Store in Lawnchair
