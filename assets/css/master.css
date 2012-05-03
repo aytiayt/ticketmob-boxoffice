@@ -1,6 +1,6 @@
 /* custom icons */
-.ui-icon-money { background-image: url(../img/icons-18-white.png); background-position: -792px 50%; }
-.ui-icon-user { background-image: url(../img/icons-18-white.png); background-position: -828px 50%; }
+.ui-icon-money span.ui-icon { background-position: -792px 50% !important; }
+.ui-icon-user span.ui-icon { background-position: -828px 50% !important; }
 
 
 

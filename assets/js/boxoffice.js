@@ -112,13 +112,13 @@ $(document).bind("pageinit", function() {
 	
 });
 
-$(document).bind('orientationchange', function(e) {
+$(window).bind('orientationchange', function(e) {
 	if($.boxofficeUser.userID > 0) {
-		if(e.orientation == "landscape"){
-			$.mobile.changePage($("#ticketholdersPage"), { transition: "pop"} );
+		if(e.orientation == "portrait") {
+			$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );
 		} else {
 			//landscape
-			$.mobile.changePage($("#"+$.boxofficeSettings.landscapePage), { transition: "pop"} );
+			$.mobile.changePage($("#"+$.boxofficeSettings.landscapePage), { transition: "none"} );
 		}
 	}
 });
