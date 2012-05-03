@@ -28,7 +28,8 @@ $(document).ready(function() {
 	$.boxofficeUser.venueName = "";
 	$.boxofficeUser.venuesOwned = "";
 					
-					
+	
+	// For testing on firefox				
 	if (navigator.userAgent.indexOf("Firefox")!=-1) {
 		/* For Firefox Testing */	
 		$.boxofficeUser.brandProperty = "LS";
@@ -42,7 +43,6 @@ $(document).ready(function() {
 		$.boxofficeUser.venueName = "LS Test Venue";
 		$.boxofficeUser.venuesOwned = "";
 		defaultAllPages();
-		populateUserFields();
 		$.mobile.changePage($("#dashboardPage"), { transition: "none"} );	
 	}
 
@@ -88,8 +88,6 @@ $(document).ready(function() {
 
 				// set all the venue and user name display
 				defaultAllPages();
-				
-				populateUserFields();
 
 				/*
 				// Store in Lawnchair
@@ -118,88 +116,92 @@ $(document).ready(function() {
 	});
 	
 	
-	
-	
-	
 	$('#loginButton').click(function() {
-		
-		var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=userlogin&username='+$('#username').val()+'&password='+$('#password').val()+'&brandProperty='+$('input[name="brandProperty"]:checked').val()+'&callback=?';
-		
-		$.getJSON(surl, function(data) {
-			
-			//console.log(data);
-			
-			if(data.SUCCESS) {
-			
-				$.boxofficeUser.brandProperty = data.BRANDPROPERTY;
-				$.boxofficeUser.datasource = data.DATASOURCE;
-				$.boxofficeUser.userID = data.USERID;
-				$.boxofficeUser.firstName = data.FIRSTNAME;
-				$.boxofficeUser.lastName = data.LASTNAME;
-				$.boxofficeUser.emailAddress = data.EMAILADDRESS;
-				$.boxofficeUser.userType = data.USERTYPE;
-				$.boxofficeUser.venueID = data.VENUEID;
-				$.boxofficeUser.venueName = data.VENUENAME;
-				$.boxofficeUser.venuesOwned = data.VENUESOWNED;
-
-				// set all the venue and user name display
-				defaultAllPages();
-				
-				populateUserFields();
-
-				// Store in Lawnchair
-				var user = { 
-					key: 'user', 
-					brandProperty: data.BRANDPROPERTY, 
-					datasource: data.DATASOURCE, 
-					userID: data.USERID, 
-					firstName: data.FIRSTNAME, 
-					lastName: data.LASTNAME, 
-					emailAddress: data.EMAILADDRESS, 
-					userType: data.USERTYPE, 
-					venueID: data.VENUEID, 
-					venueName: data.VENUENAME,
-					venuesOwned: data.VENUESOWNED };
-					
-				var data = new Lawnchair('data');
-				
-				data.save(user,function(){
-					$('#username').val('');
-					$('#password').val('');
-					$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
-				});
-			
-			} else {
-				
-				$('#password').val('');
-				
-				showAlert('Login Error','Bad Username/Password','Sorry, the username/password combination you entered was not recognized. Please try again.','back');
-				
-			}
-
-		});	
-		
+		userLogin($('#username').val(),$('#password').val(),$('input[name="brandProperty"]:checked').val());
 		return false;
-		
 	});
 	
 	$('.logoutBtn').click(function() {
-		var data = new Lawnchair('data');
-		data.nuke(function(){
-			$.mobile.changePage($("#loginPage"), { transition: "none"} );
-		});
+		userLogout();
 	});
 	
 	
 });
 
 
+var userLogin = function(username,password,brandProperty) {
+	
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=userlogin&username='+username+'&password='+password+'&brandProperty='+brandProperty+'&callback=?';
+		
+	$.getJSON(surl, function(data) {
+		
+		//console.log(data);
+		
+		if(data.SUCCESS) {
+		
+			$.boxofficeUser.brandProperty = data.BRANDPROPERTY;
+			$.boxofficeUser.datasource = data.DATASOURCE;
+			$.boxofficeUser.userID = data.USERID;
+			$.boxofficeUser.firstName = data.FIRSTNAME;
+			$.boxofficeUser.lastName = data.LASTNAME;
+			$.boxofficeUser.emailAddress = data.EMAILADDRESS;
+			$.boxofficeUser.userType = data.USERTYPE;
+			$.boxofficeUser.venueID = data.VENUEID;
+			$.boxofficeUser.venueName = data.VENUENAME;
+			$.boxofficeUser.venuesOwned = data.VENUESOWNED;
 
-var showAlert = function(dataTitle,title,content,dataRel) {
-	$('#alertBox').attr('data-title',dataTitle);
+			// set all the venue and user name display
+			defaultAllPages();
+
+			// Store in Lawnchair
+			var user = { 
+				key: 'user', 
+				brandProperty: data.BRANDPROPERTY, 
+				datasource: data.DATASOURCE, 
+				userID: data.USERID, 
+				firstName: data.FIRSTNAME, 
+				lastName: data.LASTNAME, 
+				emailAddress: data.EMAILADDRESS, 
+				userType: data.USERTYPE, 
+				venueID: data.VENUEID, 
+				venueName: data.VENUENAME,
+				venuesOwned: data.VENUESOWNED };
+				
+			var data = new Lawnchair('data');
+			
+			data.save(user,function(){
+				$('#username').val('');
+				$('#password').val('');
+				$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
+			});
+		
+		} else {
+			
+			$('#password').val('');
+			$.mobile.changePage($("#loginPage"), { transition: "none"} );
+			showAlert('Bad Username/Password','Sorry, the username/password combination you entered was not recognized. Please try again.');
+			
+		}
+
+	});		
+}
+
+
+
+
+var userLogout = function() {
+	var data = new Lawnchair('data');
+	data.nuke(function(){
+		clearAllPages();
+		$.mobile.changePage($("#loginPage"), { transition: "none"} );
+	});	
+}
+
+
+
+var showAlert = function(title,content) {
 	$('h3.alert-1','#alertBox').html(title);
 	$('p.alert-2','#alertBox').html(content);
-	$('a.alert-ok','#alertBox').attr('data-rel',dataRel);
 	$.mobile.changePage("#alertBox");
 }
 
@@ -216,17 +218,62 @@ var populateUserFields = function() {
 
 var defaultAllPages = function() {
 	// set the default page views
+	populateUserFields();
 	defaultDashboard();
+	defaultSellTicket();
+	defaultCalendar();
+	defaultSearch();
+	defaultReports();
+	defaultSettings();
 }
 
 
 
 var defaultDashboard = function() {
 
+	$.mobile.showPageLoadingMsg();
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=dashboardcontent&venueID='+$.boxofficeUser.venueID+'&datasource='+$.boxofficeUser.datasource+'&brandProperty='+$.boxofficeUser.brandProperty+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
-			$('#dashboardPageContent').html(data.HTML);
+			$('#dashboardPageContent').html(data.HTML).trigger("create");
+			$.mobile.hidePageLoadingMsg();
+		}
+	});
+	
+}
+
+
+
+var defaultSellTicket = function() {
+	
+}
+
+
+
+var defaultCalendar = function() {
+	
+}
+
+
+
+var defaultSearch = function() {
+	
+}
+
+
+
+var defaultReports = function() {
+	
+}
+
+
+
+var defaultSettings = function() {
+
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=settingscontent&venueID='+$.boxofficeUser.venueID+'&venuesOwned='+$.boxofficeUser.venuesOwned+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			$('#settingsPageContent').html(data.HTML).trigger("create");
 		}
 	});
 	
@@ -236,20 +283,74 @@ var defaultDashboard = function() {
 
 var showInfo = function(showTimingID) {
 	
-	$('#alertBox').attr('data-title','');
-	$('h3.alert-1','#alertBox').html('Show/Event Information');
-	$('p.alert-2','#alertBox').html('');
-	$('a.alert-ok','#alertBox').attr('data-rel','back').hide();
-	$.mobile.changePage("#alertBox");
+	$.mobile.showPageLoadingMsg();
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=showinfo&showTimingID='+showTimingID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
+			showAlert('Show/Event Information',data.HTML);
 			$('p.alert-2','#alertBox').html(data.HTML);
 			$('a.alert-ok','#alertBox').show();
+			$.mobile.hidePageLoadingMsg();
 		}
 	});
 	
 }
 
 
+
+var updateSelectedVenue = function() {
+	
+	$.boxofficeUser.venueID = $('#venueID').val();
+	$.boxofficeUser.venueName = $('#venueID option:selected').text();
+	
+	var user = { 
+		key: 'user', 
+		brandProperty: $.boxofficeUser.brandProperty, 
+		datasource: $.boxofficeUser.datasource, 
+		userID: $.boxofficeUser.userID, 
+		firstName: $.boxofficeUser.firstName, 
+		lastName: $.boxofficeUser.lastName, 
+		emailAddress: $.boxofficeUser.emailAddress, 
+		userType: $.boxofficeUser.userType, 
+		venueID: $.boxofficeUser.venueID, 
+		venueName: $.boxofficeUser.venueName,
+		venuesOwned: $.boxofficeUser.venuesOwned };
+		
+	var data = new Lawnchair('data');
+	
+	data.save(user,function(){
+		defaultAllPages();
+	});
+
+}
+
+
+
+var clearAllPages = function() {
+	// clear all the page views
+	clearDashboard();
+	clearSellTicket();
+	clearCalendar();
+	clearSearch();
+	clearReports();
+	clearSettings();
+}
+var clearDashboard = function() {
+	$('#dashboardPageContent').html('');
+}
+var clearSellTicket = function() {
+	$('#sellTicketPageContent').html('');
+}
+var clearCalendar = function() {
+	$('#calendarPageContent').html('');
+}
+var clearSearch = function() {
+	$('#searchPageContent').html('');
+}
+var clearReports = function() {
+	$('#reportsPageContent').html('');
+}
+var clearSettings = function() {
+	$('#settingsPageContent').html('');
+}
 
