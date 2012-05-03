@@ -91,7 +91,7 @@ $(document).bind("pageinit", function() {
 			// set up the default views
 			defaultAllPages();
 			
-			$.mobile.changePage($("#dashboardPage"), { transition: "none"} );	
+			$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
 			
 			//Testing:
 			//$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );	
@@ -113,12 +113,14 @@ $(document).bind("pageinit", function() {
 });
 
 $(document).bind('orientationchange', function(e) {
-	if(e.orientation=="portrait"){
-		$.mobile.changePage($("#ticketholdersPage"), { transition: "pop"} );
-	} else {
-		//landscape
-		$.mobile.changePage($("#"+$.boxofficeSettings.landscapePage), { transition: "pop"} );
-	}	
+	if($.boxofficeUser.userID > 0) {
+		if(e.orientation == "landscape"){
+			$.mobile.changePage($("#ticketholdersPage"), { transition: "pop"} );
+		} else {
+			//landscape
+			$.mobile.changePage($("#"+$.boxofficeSettings.landscapePage), { transition: "pop"} );
+		}
+	}
 });
 
 
