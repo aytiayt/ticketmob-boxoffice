@@ -4,6 +4,7 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
 		<title>TicketMob Box Office</title>
 		
+		<link rel="stylesheet" href="assets/css/reset.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="assets/css/ticketmob-boxoffice.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="assets/css/jquery.mobile.structure-1.1.0.min.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="assets/css/master.css" type="text/css" media="screen" />
@@ -15,11 +16,11 @@
 		<script src="assets/js/lawnchair/adaptors/DOMStorageAdaptor.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/jquery.mobile-1.1.0.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/date.format.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/boxoffice.js" type="text/javascript" charset="utf-8"></script>
 
 		<!--
         <script src="assets/js/xui.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/lawnchair/Lawnchair.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/dsl.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script>
         -->
@@ -66,7 +67,8 @@
                 	
             </div><!-- /content -->
             
-        </div><!-- /Login Page -->
+        </div>
+        <!-- End of Login Page -->
         
         
         <div data-role="dialog" data-theme="b" id="alertBox">
@@ -89,9 +91,9 @@
             <div data-role="header">
                 <h1><span class="venueName"></span> Box Office</h1>
                 <a href="" class="logoutBtn ui-btn-right" data-icon="delete">Logout</a>
-            </div><!-- /header -->
+            </div>
         
-            <div data-role="content" id="dashboardPageContent"></div><!-- /content -->
+            <div data-role="content" id="dashboardPageContent"></div>
             
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="left">
@@ -102,11 +104,12 @@
                         <li><a href="#reportsPage" data-icon="report">Reports</a></li>
                         <li><a href="#settingsPage" data-icon="settings">Settings</a></li>
                     </ul>
-                </div><!-- /navbar -->
+                </div>
 			</div>
             
             
-        </div><!-- /Dashboard Page -->
+        </div>
+        <!-- End of Dashboard Page -->
 
 
 
@@ -158,14 +161,9 @@
                 <a href="#dashboardPage" data-icon="home">Dashboard</a>
                 <h1>Shows/Events Calendar</h1>
                 <a href="" class="logoutBtn" data-icon="delete">Logout</a>
-            </div><!-- /header -->
+            </div>
         
-            <div data-role="content" id="calendarPageContent">	
-                
-                Calendar Page
-                	
-            </div><!-- /content -->
-            
+            <div data-role="content" id="calendarPageContent"></div>
             
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="left">
@@ -176,11 +174,12 @@
                         <li><a href="#reportsPage" data-icon="report">Reports</a></li>
                         <li><a href="#settingsPage" data-icon="settings">Settings</a></li>
                     </ul>
-                </div><!-- /navbar -->
+                </div>
 			</div>
             
             
-        </div><!-- /Calendar Page -->
+        </div>
+        <!-- End of Calendar Page -->
 
 
 
@@ -261,7 +260,7 @@
         
         
         
-        
+
         <!-- Settings Page -->
         <div id="settingsPage" data-role="page">
 
@@ -286,6 +285,26 @@
 			</div>
             
         </div><!-- /Settings Page -->
+
+        
+        
+        
+        
+        
+        
+        <!-- Ticket Holders Page for Portrait Mode -->
+        <div id="ticketholdersPage" data-role="page">
+        
+        	<div data-role="header" data-position="fixed">
+                <a href="" id="ticketholdersPrev" class="ui-btn-left" onclick="return false;" data-icon="arrow-l">Prev</a>
+                <h1 id="ticketholdersHeader">Ticket Holders &amp; Guest List</h1>
+                <a href="" id="ticketholdersNext" class="ui-btn-right" onclick="return false;" data-icon="arrow-r" data-iconpos="right">Next</a>
+            </div>
+            
+            <div data-role="content" id="ticketholdersPageContent"></div>
+        
+        </div>
+        <!--- End of Ticket Holders Page --->
         
         
         

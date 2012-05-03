@@ -17,7 +17,7 @@
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>
 
-	<preference name="orientation" value="landscape" />
+	<preference name="orientation" value="default" />
 	<preference name="webviewbounce" value="false" />
 	<preference name="stay-in-webview" value="true" />
 	<preference name="target-device" value="tablet" />

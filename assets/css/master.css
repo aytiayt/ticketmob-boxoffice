@@ -1,3 +1,8 @@
+/* custom icons */
+.ui-icon-money { background-image: url(../img/icons-18-white.png); background-position: -792px 50%; }
+.ui-icon-user { background-image: url(../img/icons-18-white.png); background-position: -828px 50%; }
+
+
 
 
 /* Login Page */
@@ -5,6 +10,9 @@
 #loginForm { padding: 430px 70px 0 70px; }
 #loginBtnContainer { margin-left: 22%; }
 #loginBtnContainer .ui-btn-block { width: 79%; }
+
+
+
 
 
 /* footer icons */
@@ -42,5 +50,62 @@ ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.
 ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.ticketinfo span.ticketprice { display: block; float: left; width: 50%; font-weight: bold; }
 ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.ticketinfo span.availabletickets { display: block; margin-left: 50%; text-align: right; }
 
+
+
+
+
+/* Calendar */
+#calendarPageContent .ui-bar { padding: 0; }
+#calendarPageContent .ui-bar .ui-title { display: block; font-size: 20px; margin: 0.4em 30%; overflow: hidden; padding: 0; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
+#calendarPageContent .ui-bar .ui-btn-left { position: absolute; left: 0; top: 0; }
+#calendarPageContent .ui-bar .ui-btn-right { position: absolute; right: 0; top: 0; }
+
+table.showCalendar { width: 100%; border-bottom: 1px solid #ddd; }
+table.showCalendar th, 
+table.showCalendar td { width: 14%; }
+table.showCalendar th.sunday, 
+table.showCalendar th.saturday, 
+table.showCalendar td.sunday,
+table.showCalendar td.saturday { width: 16%; }
+table.showCalendar thead { 
+	background: #111111;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(   #3c3c3c   /*{a-bar-background-start}*/), to(   #111111   /*{a-bar-background-end}*/)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(   #3c3c3c   /*{a-bar-background-start}*/,   #111111   /*{a-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient(   #3c3c3c   /*{a-bar-background-start}*/,   #111111   /*{a-bar-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient(   #3c3c3c   /*{a-bar-background-start}*/,   #111111   /*{a-bar-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient(   #3c3c3c   /*{a-bar-background-start}*/,   #111111   /*{a-bar-background-end}*/); /* Opera 11.10+ */
+	background-image:         linear-gradient(   #3c3c3c   /*{a-bar-background-start}*/,   #111111   /*{a-bar-background-end}*/);
+}
+table.showCalendar th span { display: block; color: #fff; text-shadow: 0 -1px 1px #000000; font-weight: bold; font-size: 16px; padding: 10px 0; text-align: center; border-right: 1px solid #555; border-left: 1px solid #000; }
+table.showCalendar th.sunday span { border-left: none; }
+table.showCalendar th.saturday span { border-right: none; }
+table.showCalendar td { height: 89px; }
+table.showCalendar td span.daywrapper { border-right: 1px solid #fff; border-bottom: 1px solid #fff; border-left: 1px solid #ddd; border-top: 1px solid #ddd; display: block; height: 87px; }
+table.showCalendar td.saturday span.daywrapper { border-right: 1px solid #ddd; }
+table.showCalendar td.prevmonth span.daywrapper,
+table.showCalendar td.nextmonth span.daywrapper { background: #ddd; border-left: 1px solid #ccc; border-bottom: 1px solid #e9e9e9; border-right: 1px solid #e9e9e9; }
+
+table.showCalendar td span.dayHeader { 
+	background:   			#eeeeee;
+	color:   				#3E3E3E;
+	text-shadow:   			0 1px 1px #ffffff;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(   #f0f0f0   /*{c-bar-background-start}*/), to(   #dddddd   /*{c-bar-background-end}*/)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(   #f0f0f0   /*{c-bar-background-start}*/,   #dddddd   /*{c-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient(   #f0f0f0   /*{c-bar-background-start}*/,   #dddddd   /*{c-bar-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient(   #f0f0f0   /*{c-bar-background-start}*/,   #dddddd   /*{c-bar-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient(   #f0f0f0   /*{c-bar-background-start}*/,   #dddddd   /*{c-bar-background-end}*/); /* Opera 11.10+ */
+	background-image:         linear-gradient(   #f0f0f0   /*{c-bar-background-start}*/,   #dddddd   /*{c-bar-background-end}*/);
+	display: block; font-size: 16px; text-transform: uppercase; padding: 5px 0; text-align: center;
+}
+table.showCalendar td.prevmonth span.dayHeader,
+table.showCalendar td.nextmonth span.dayHeader { background: none; background-image: none; color: #999; }
+
+
+
+
+
+/* Ticket Holders */
+#ticketholdersPage .ui-header .ui-title { margin: 0.6em 11% 0.8em 11%; }
+#ticketholdersPage .ui-li-heading { text-transform: capitalize; }
 
 
