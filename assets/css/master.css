@@ -6,10 +6,16 @@
 
 
 /* Login Page */
-#loginPage { background: url(../img/bg-ticketmob.png) no-repeat top center; }
+#loginPage { background: #f2f2f2 url(../img/bg-ticketmob.png) no-repeat top center; }
 #loginForm { padding: 430px 70px 0 70px; }
 #loginBtnContainer { margin-left: 22%; }
 #loginBtnContainer .ui-btn-block { width: 79%; }
+html.portrait #loginForm { padding: 465px 0 0 0; }
+html.portrait #loginForm .ui-field-contain .ui-controlgroup-label,
+html.portrait #loginForm .ui-field-contain label.ui-input-text { width: 15%; }
+html.portrait #loginForm .ui-field-contain .ui-controlgroup-controls { width: 75%; }
+html.portrait #loginForm .ui-field-contain input.ui-input-text { width: 64%; }
+html.portrait #loginBtnContainer { margin-left: 17%; }
 
 
 
@@ -30,6 +36,12 @@
 
 
 
+/* Alert */
+h3.alert-1 { font-size: 22px; font-weight: bold; }
+p.alert-2 { margin: 10px 0 20px 0; }
+
+
+
 
 /* Show Overview */
 #dashboardPageContent,
@@ -38,20 +50,20 @@ div.showOverviewContainer { position: relative; height: 610px; width: 100%; over
 ul.showOverview { list-style: none; margin: 0; padding: 0; display: block; width: auto; height: 610px; position: absolute; top: 0; left: 0; }
 ul.showOverview li.showHolder { width: 249px; float: left; overflow: hidden; }
 ul.showOverview li.showHolder div.showContent { height: 560px; background: #e8e8e8; border-radius: 5px; box-shadow: 0 0 10px #d0d0d0 inset; padding: 15px; margin: 10px; }
-ul.showOverview li.showHolder div.showContent div.header { position: relative; border-bottom: 1px dashed #aaa; padding-bottom: 5px; }
-ul.showOverview li.showHolder div.showContent div.header span { display: block; }
-ul.showOverview li.showHolder div.showContent div.header span.poster { width: 78px; height: 93px; padding: 1px; overflow: hidden; float: left; background: #9f9f9f; }
-ul.showOverview li.showHolder div.showContent div.header span.poster img { width: 78px; }
-ul.showOverview li.showHolder div.showContent div.header span.datetime { margin: 0 0 0 90px; height: 100px; }
-ul.showOverview li.showHolder div.showContent div.header span.datetime span.date { font-size: 24px; color: #5e5e5e; font-weight: normal; text-transform: uppercase; }
-ul.showOverview li.showHolder div.showContent div.header span.datetime span.time { font-size: 18px; color: #5e5e5e; font-weight: normal; text-transform: uppercase; }
-ul.showOverview li.showHolder div.showContent div.header span.title { clear: left; font-weight: bold; color: #cb492f; font-size: 16px; height: 55px; line-height: 18px; overflow: hidden; }
-ul.showOverview li.showHolder div.showContent div.tickets { overflow: auto; height: 358px; }
-ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList { list-style: none; margin: 0; padding: 0; display: block; width: 100%; }
-ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li { display: block; }
-ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.ticketinfo { display: block; padding: 0 10px 3px 10px; }
-ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.ticketinfo span.ticketprice { display: block; float: left; width: 50%; font-weight: bold; }
-ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.ticketinfo span.availabletickets { display: block; margin-left: 50%; text-align: right; }
+div.showContent div.header { position: relative; border-bottom: 1px dashed #aaa; padding-bottom: 5px; }
+div.showContent div.header span { display: block; }
+div.showContent div.header span.poster { width: 78px; height: 93px; padding: 1px; overflow: hidden; float: left; background: #9f9f9f; }
+div.showContent div.header span.poster img { width: 78px; }
+div.showContent div.header span.datetime { margin: 0 0 0 90px; height: 100px; }
+div.showContent div.header span.datetime span.date { font-size: 24px; color: #5e5e5e; font-weight: normal; text-transform: uppercase; }
+div.showContent div.header span.datetime span.time { font-size: 18px; color: #5e5e5e; font-weight: normal; text-transform: uppercase; }
+div.showContent div.header span.title { clear: left; font-weight: bold; color: #cb492f; font-size: 16px; height: 55px; line-height: 18px; overflow: hidden; }
+div.showContent div.tickets { overflow: auto; height: 358px; }
+div.showContent div.tickets ul.ticketList { list-style: none; margin: 0; padding: 0; display: block; width: 100%; }
+div.showContent div.tickets ul.ticketList li { display: block; }
+div.showContent div.tickets ul.ticketList li span.ticketinfo { display: block; padding: 0 10px 3px 10px; }
+div.showContent div.tickets ul.ticketList li span.ticketinfo span.ticketprice { display: block; float: left; width: 50%; font-weight: bold; }
+div.showContent div.tickets ul.ticketList li span.ticketinfo span.availabletickets { display: block; margin-left: 50%; text-align: right; }
 
 
 
@@ -112,5 +124,54 @@ table.showCalendar td.nextmonth span.dayHeader { background: none; background-im
 /* Ticket Holders */
 #ticketholdersPage .ui-header .ui-title { margin: 0.6em 11% 0.8em 11%; }
 #ticketholdersPage .ui-li-heading { text-transform: capitalize; }
+
+
+
+
+
+
+/* Settings */
+#settingsForm .ui-field-contain .ui-controlgroup-label,
+#settingsForm .ui-field-contain label.ui-select { width: 30%; }
+
+
+
+
+
+/* Sell Ticket */
+
+#sellTicketPageContent .ui-grid-a .showColumn { width: 20%; }
+#sellTicketPageContent .ui-grid-a .optionsColumn { width: 80%; }
+#sellTicketPageContent .ui-grid-a .optionsColumn .ui-grid-a .ticketColumn { width: 33%; }
+#sellTicketPageContent .ui-grid-a .optionsColumn .ui-grid-a .paymentColumn { width: 67%; }
+#sellTicketPageContent .optionsColumnContent { background: #e8e8e8; border-radius: 5px; box-shadow: 0 0 10px #d0d0d0 inset; padding: 15px; margin: 0; height: 580px; }
+#sellTicketPageContent .ticketColumnContent { padding-right: 15px; border-right: 1px solid #cdcdcd; height: 580px; }
+#sellTicketPageContent .paymentColumnContent { padding-left: 15px; border-left: 1px solid #f7f7f7; height: 580px; }
+#sellTicketPageContent div.showContent { padding: 5px 15px 0 0; }
+
+#sellTicketPageContent .optionsColumnContent h2 { font-size: 26px; font-weight: lighter; margin: 0 0 5px 0; height: 30px; }
+
+#sellTicketPageContent #ticketContainer { border-bottom: 1px dashed #aaa; height: 194px; margin: 0 0 10px 0; padding: 0 0 10px 0; overflow: auto; }
+#sellTicketPageContent ul.ticketQtyList input.qtyField { width: 20px; margin: 0; text-align: center; display: inline-block; padding: 0 3px; height: 24px; margin: 0 1px 0 0; float: left; }
+#sellTicketPageContent div.qtyContainer { height: 26px; width: 90px; float: left; }
+#sellTicketPageContent div.qtyContainer .ui-btn-icon-notext { margin: 0 1px 0 0; float: left; }
+#sellTicketPageContent ul.ticketQtyList h3 { color: #CB492F; font-size: 16px; margin: 0 0 0 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#sellTicketPageContent ul.ticketQtyList p { font-size: 14px; margin: 0 0 0 90px; }
+#sellTicketPageContent ul.ticketQtyList li { padding: 0 0 10px 0; display: block; }
+
+#sellTicketPageContent #discountContainer { border-bottom: 1px dashed #aaa; height: 84px; margin: 0 0 10px 0; padding: 0 0 10px 0; }
+#sellTicketPageContent #discountContainer #couponCode { width: 160px; }
+#sellTicketPageContent #discountContainer .ui-btn-inline { float: right; }
+#sellTicketPageContent #discountContainer .ui-select { width: 100%; }
+#sellTicketPageContent #discountContainer .ui-select .ui-btn { margin: 0 5px; }
+#sellTicketPageContent #discountContainer .ui-field-contain { margin: 5px 0 10px 0; }
+
+#sellTicketPageContent #orderTotalContainer { height: 155px; }
+#sellTicketPageContent #orderTotalContainer table { width: 100%; }
+#sellTicketPageContent #orderTotalContainer td { font-size: 14px; padding: 3px; }
+#sellTicketPageContent #orderTotalContainer td.value { text-align: right; }
+#sellTicketPageContent #orderTotalContainer tr.total td { font-size: 20px; font-weight: bold; padding-top: 5px; border-top: 1px solid #ccc; }
+#sellTicketPageContent #orderTotalContainer tr.odd { background: #f1f1f1; }
+
 
 

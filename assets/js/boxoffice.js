@@ -10,11 +10,9 @@ $(document).bind("mobileinit", function() {
 $(document).ready(function() {
     
 	// For testing since there is no mobileinit on desktop
-	/*
 	$.support.cors = true;
 	$.mobile.allowCrossDomainPages = true;
 	$.mobile.defaultPageTransition = 'none';
-	*/
 	// End for testing
 	
 	
@@ -49,7 +47,7 @@ $(document).ready(function() {
 		$.boxofficeUser.venueName = "Irvine Improv";
 		$.boxofficeUser.venuesOwned = "189,190,44,109,196,200,201,220,1350,1837,375,1677,658,61,9,156,193,202,43,198,2139,197,194,45,203,204,195,990,199,685,127,654,191";
 		defaultAllPages();
-		$.mobile.changePage($("#dashboardPage"), { transition: "none"} );	
+		$.mobile.changePage($("#sellTicketPage"), { transition: "none"} );	
 	}
 	*/
 	
@@ -108,6 +106,7 @@ $(document).ready(function() {
 		userLogout();
 	});
 
+
 	$(window).bind('orientationchange', function(e) {
 		if($.boxofficeUser.userID > 0) {
 			if(e.orientation == "portrait") {
@@ -119,9 +118,6 @@ $(document).ready(function() {
 			}
 		}
 	});
-
-
-	
 	
 	$(document).bind("pagebeforechange",function(event, data) {
 		$.mobile.showPageLoadingMsg();
@@ -136,7 +132,9 @@ $(document).ready(function() {
 		
 	});
 
+
 });
+
 
 
 

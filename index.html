@@ -18,12 +18,6 @@
 		<script src="assets/js/jquery.mobile-1.1.0.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/date.format.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/boxoffice.js" type="text/javascript" charset="utf-8"></script>
-
-		<!--
-        <script src="assets/js/xui.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/dsl.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script>
-        -->
 		
 	</head>
 	<body>
@@ -128,7 +122,206 @@
         
             <div data-role="content" id="sellTicketPageContent">	
                 
-                Sell Ticket
+                <div class="ui-grid-a">
+                    <div class="ui-block-a showColumn">
+                    
+                    
+                    	<div class="showContent">
+                        
+                        	<div class="header">
+                            	
+                                <span class="poster">
+                                	<img src="https://www.ticketmob.com/webassets/LS/images/comedians/78x93_Jim-Jefferies-2.JPG" />
+                                </span>
+                                
+                                <span class="datetime">
+                                	<span class="date">May 4</span>
+                                    <span class="time">8:00 PM</span>
+                                    <span class="room">Main Ballroom</span>
+                                </span>
+                                
+                                <span class="title">Jim Jefferies</span>
+                                
+                                <a href="" onclick="showInfo(132703);return false;" data-role="button" data-icon="info" data-mini="true">Show/Event Info</a>
+                                
+                            </div>
+                            
+                            <div class="tickets">
+                            	
+                                <ul class="ticketList">
+                                
+                                    <li><a href="" class="ui-icon-user" onclick="return false;" data-theme="a" data-role="button" data-icon="home">Guest List</a></li>
+                                    <li><a href="" class="ui-icon-user" onclick="return false;" data-theme="a" data-role="button" data-icon="home">Will Call</a></li>
+                                
+                                </ul>
+                                
+                            </div>
+                        
+                        </div>
+                    
+                    
+                    </div>
+                    <div class="ui-block-b optionsColumn">
+                    
+                    	<div class="optionsColumnContent">
+                        
+                            <div class="ui-grid-a">
+                                <div class="ui-block-a ticketColumn">
+                                	<div class="ticketColumnContent">
+                                		<h2>Tickets</h2>
+                                        <div id="ticketContainer">
+                                            <ul class="ticketQtyList">
+                                                <li>
+                                                    <div class="qtyContainer">
+                                                        <a href="" data-role="button" data-theme="a" data-icon="minus" data-inline="true" data-iconpos="notext">Less</a>
+                                                        <input type="text" name="qty1" id="qty1" value="0" class="qtyField" data-mini="true" />
+                                                        <a href="" data-role="button" data-theme="b" data-icon="plus" data-inline="true" data-iconpos="notext">More</a>
+                                                    </div>
+                                                    <h3>General Admission</h3>
+                                                    <p>$11.50 - 59 Avail</p>
+                                                </li>
+                                                <li>
+                                                    <div class="qtyContainer">
+                                                        <a href="" data-role="button" data-theme="a" data-icon="minus" data-inline="true" data-iconpos="notext">Less</a>
+                                                        <input type="text" name="qty2" id="qty2" value="0" class="qtyField" data-mini="true" />
+                                                        <a href="" data-role="button" data-theme="b" data-icon="plus" data-inline="true" data-iconpos="notext">More</a>
+                                                    </div>
+                                                    <h3>Members</h3>
+                                                    <p>$7.50 - 59 Avail</p>
+                                                </li>
+                                                <li>
+                                                    <div class="qtyContainer">
+                                                        <a href="" data-role="button" data-theme="a" data-icon="minus" data-inline="true" data-iconpos="notext">Less</a>
+                                                        <input type="text" name="qty3" id="qty3" value="0" class="qtyField" data-mini="true" />
+                                                        <a href="" data-role="button" data-theme="b" data-icon="plus" data-inline="true" data-iconpos="notext">More</a>
+                                                    </div>
+                                                    <h3>Student</h3>
+                                                    <p>$5.00 29 Avail</p>
+                                                </li>
+                                                <li>
+                                                    <div class="qtyContainer">
+                                                        <a href="" data-role="button" data-theme="a" data-icon="minus" data-inline="true" data-iconpos="notext">Less</a>
+                                                        <input type="text" name="qty4" id="qty4" value="0" class="qtyField" data-mini="true" />
+                                                        <a href="" data-role="button" data-theme="b" data-icon="plus" data-inline="true" data-iconpos="notext">More</a>
+                                                    </div>
+                                                    <h3>Balcony</h3>
+                                                    <p>$45.00 29 Avail</p>
+                                                </li>
+                                                <li>
+                                                    <div class="qtyContainer">
+                                                        <a href="" data-role="button" data-theme="a" data-icon="minus" data-inline="true" data-iconpos="notext">Less</a>
+                                                        <input type="text" name="qty5" id="qty5" value="0" class="qtyField" data-mini="true" />
+                                                        <a href="" data-role="button" data-theme="b" data-icon="plus" data-inline="true" data-iconpos="notext">More</a>
+                                                    </div>
+                                                    <h3>Floor</h3>
+                                                    <p>$115.00 29 Avail</p>
+                                                </li>
+                                                <li>
+                                                    <div class="qtyContainer">
+                                                        <a href="" data-role="button" data-theme="a" data-icon="minus" data-inline="true" data-iconpos="notext">Less</a>
+                                                        <input type="text" name="qty6" id="qty6" value="0" class="qtyField" data-mini="true" />
+                                                        <a href="" data-role="button" data-theme="b" data-icon="plus" data-inline="true" data-iconpos="notext">More</a>
+                                                    </div>
+                                                    <h3>Silver Level</h3>
+                                                    <p>$5.00 29 Avail</p>
+                                                </li>
+                                                <li>
+                                                    <div class="qtyContainer">
+                                                        <a href="" data-role="button" data-theme="a" data-icon="minus" data-inline="true" data-iconpos="notext">Less</a>
+                                                        <input type="text" name="qty7" id="qty7" value="0" class="qtyField" data-mini="true" />
+                                                        <a href="" data-role="button" data-theme="b" data-icon="plus" data-inline="true" data-iconpos="notext">More</a>
+                                                    </div>
+                                                    <h3>Platinum</h3>
+                                                    <p>$5.00 29 Avail</p>
+                                                </li>
+                                            </ul>
+                                            
+                                        </div>
+                                        <h2>Discounts</h2>
+                                        <div id="discountContainer">
+                                        	<div data-role="fieldcontain">
+                                                <select name="discount" id="discount" data-mini="true">
+                                                	<option value="0">-- Select ---</option>
+                                                    <option value="VIP"> VIP </option>
+                                                    <option value="GuestList">GuestList</option>
+                                                    <option value="756">Two For One</option>
+                                                    <option value="757">50%</option>
+                                                    <option value="17097">Manager Comp</option>
+                                                    <option value="34841">Staff Comp</option>
+                                                    <option value="34842">Industry Comp</option>
+                                                    <option value="34843">Team Comp</option>
+                                                    <option value="34844">Alumni/Teacher Comp</option>
+                                                    <option value="36739">Groupon</option>
+                                                    <option value="36744">Goldstar</option>
+                                                    <option value="169216">Grad Comp</option>
+                                                </select>
+                                            </div>
+                                            <div data-role="fieldcontain" class="ui-hide-label">
+                                                <label for="couponCode">Coupon Code:</label>
+                                                <input type="button" name="applyCoupon" id="applyCoupon" value="Go" data-mini="true" data-inline="true" />
+                                                <input type="text" name="couponCode" id="couponCode" value="" data-mini="true" placeholder="Coupon Code" />
+                                            </div>
+                                        </div>
+                                        <h2>Order Total</h2>
+                                        <div id="orderTotalContainer">
+                                        	<table>
+                                            	<tr class="odd">
+                                                	<td class="label">Tickets</td>
+                                                    <td class="value">$0.00</td>
+                                                </tr>
+                                                <tr class="even">
+                                                	<td class="label">Sub Total</td>
+                                                    <td class="value">$0.00</td>
+                                                </tr>
+                                                <tr class="odd">
+                                                	<td class="label">Discount</td>
+                                                    <td class="value">-$0.00</td>
+                                                </tr>
+                                                <tr class="even">
+                                                	<td class="label">Tax</td>
+                                                    <td class="value">$0.00</td>
+                                                </tr>
+                                                <tr class="odd">
+                                                	<td class="label">Total Purchase</td>
+                                                    <td class="value">$0.00</td>
+                                                </tr>
+                                                <tr class="even">
+                                                	<td class="label">Service Fee</td>
+                                                    <td class="value">$0.00</td>
+                                                </tr>
+                                                <tr class="total">
+                                                	<td class="label">Total Amount</td>
+                                                    <td class="value">$0.00</td>
+                                                </tr>
+                                            </table>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                <div class="ui-block-b paymentColumn">
+                                	<div class="paymentColumnContent">
+                                    
+                                    	<h2>Payment</h2>
+                                    
+                                        <div data-role="navbar">
+                                            <ul>
+                                                <li><a href="#" class="ui-btn-active">Cash</a></li>
+                                                <li><a href="#">Credit Card</a></li>
+                                                <li><a href="#">Gift Card</a></li>
+                                            </ul>
+                                        </div><!-- /navbar -->
+                                        
+                                    </div>
+                                
+                                </div>
+                            </div><!-- /grid-a -->
+                        
+                        </div>
+                    
+                    </div>
+                </div><!-- /grid-a -->
+                
+                
+                
                 	
             </div><!-- /content -->
             
