@@ -7,15 +7,12 @@ $(document).bind("mobileinit", function() {
 });
 
 
-$(document).bind("pageinit", function() {
-//$(document).ready(function() {
+$(document).ready(function() {
     
 	// For testing since there is no mobileinit on desktop
-	/*
 	$.support.cors = true;
 	$.mobile.allowCrossDomainPages = true;
 	$.mobile.defaultPageTransition = 'none';
-	*/
 	// End for testing
 	
 	
@@ -34,10 +31,9 @@ $(document).bind("pageinit", function() {
 					
 	$.boxofficeSettings = {};
 	$.boxofficeSettings.landscapePage = 'dashboardPage';
-
+ 
 
 	// For testing on firefox				
-	/*
 	if (navigator.userAgent.indexOf("Firefox")!=-1) {
 		$.boxofficeUser.brandProperty = "LS";
 		$.boxofficeUser.datasource = "LaughStub";
@@ -50,9 +46,8 @@ $(document).bind("pageinit", function() {
 		$.boxofficeUser.venueName = "Irvine Improv";
 		$.boxofficeUser.venuesOwned = "189,190,44,109,196,200,201,220,1350,1837,375,1677,658,61,9,156,193,202,43,198,2139,197,194,45,203,204,195,990,199,685,127,654,191";
 		defaultAllPages();
-		$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );	
+		$.mobile.changePage($("#calendarPage"), { transition: "none"} );	
 	}
-	*/
 
 	
 	
@@ -110,18 +105,32 @@ $(document).bind("pageinit", function() {
 		userLogout();
 	});
 	
+	
+	
+
+	$(window).bind('orientationchange', function(e) {
+		if($.boxofficeUser.userID > 0) {
+			if(e.orientation == "portrait") {
+				$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );
+			} else {
+				//landscape
+				$.mobile.changePage($("#"+$.boxofficeSettings.landscapePage), { transition: "none"} );
+			}
+		}
+	});
+	
+	
+	$(document).bind("pagechange",function(event, data) {
+		// set current view for orientation changing back and forth
+		$.boxofficeSettings.landscapePage = data.toPage.attr("id")
+		
+	});
+
+
 });
 
-$(window).bind('orientationchange', function(e) {
-	if($.boxofficeUser.userID > 0) {
-		if(e.orientation == "portrait") {
-			$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );
-		} else {
-			//landscape
-			$.mobile.changePage($("#"+$.boxofficeSettings.landscapePage), { transition: "none"} );
-		}
-	}
-});
+//$(document).bind("pageinit", function() { });
+
 
 
 var userLogin = function(username,password,brandProperty) {
@@ -249,10 +258,7 @@ var defaultSellTicket = function() {
 var defaultCalendar = function() {
 
 	var now = new Date();
-
-	//Testing:
-	navigateCalendar('month','05/01/2013');
-	//navigateCalendar(now.format("mm/dd/yyyy"));
+	navigateCalendar('month',now.format("mm/dd/yyyy"));
 	
 }
 
@@ -260,17 +266,21 @@ var navigateCalendar = function(view,date) {
 
 	switch(view){
 		case 'day':
-			var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=calendarday&venueID='+$.boxofficeUser.venueID+'&datasource='+$.boxofficeUser.datasource+'&date='+date+'&callback=?';
+			var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=calendarday&venueID='+$.boxofficeUser.venueID+'&datasource='+$.boxofficeUser.datasource+'&brandProperty='+$.boxofficeUser.brandProperty+'&showDate='+date+'&callback=?';
 			$.getJSON(surl, function(data) {
 				if(data.SUCCESS) {
-					$('#calendarPageContent').html(data.HTML).trigger("create");
+					$("#calendarDayPageContent").html(data.HTML).trigger("create");
+					$.mobile.changePage($("#calendarDayPage"), { transition: "none"} );
 				}
 			});
+			break;
 		default:
 			var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=calendarcontent&venueID='+$.boxofficeUser.venueID+'&datasource='+$.boxofficeUser.datasource+'&startDate='+date+'&callback=?';
 			$.getJSON(surl, function(data) {
+				console.log(data);
 				if(data.SUCCESS) {
 					$('#calendarPageContent').html(data.HTML).trigger("create");
+					$.mobile.changePage($("#calendarPage"), { transition: "none"} );
 				}
 			});
 			break;
@@ -393,6 +403,7 @@ var clearAllPages = function() {
 	clearSearch();
 	clearReports();
 	clearSettings();
+	clearTicketHolders();
 }
 var clearDashboard = function() {
 	$('#dashboardPageContent').html('');
@@ -411,5 +422,11 @@ var clearReports = function() {
 }
 var clearSettings = function() {
 	$('#settingsPageContent').html('');
+}
+var clearTicketHolders = function() {
+	$('#ticketholdersPrev').attr('onclick','return false;').show();
+	$('#ticketholdersNext').attr('onclick','return false;').show();
+	$('#ticketholdersHeader').html('Ticket Holders &amp; Guest List');
+	$('#ticketholdersPageContent').html('');
 }
 

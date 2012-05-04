@@ -916,8 +916,7 @@ a.ui-link-inherit {
 	.ui-icon-arrow-l, .ui-icon-arrow-u, .ui-icon-arrow-d, .ui-icon-check,
 	.ui-icon-gear, .ui-icon-refresh, .ui-icon-forward, .ui-icon-back,
 	.ui-icon-grid, .ui-icon-star, .ui-icon-alert, .ui-icon-info, .ui-icon-home, .ui-icon-search, .ui-icon-searchfield:after, 
-	.ui-icon-checkbox-off, .ui-icon-checkbox-on, .ui-icon-radio-off, .ui-icon-radio-on,
-	.ui-icon-money, .ui-icon-user {
+	.ui-icon-checkbox-off, .ui-icon-checkbox-on, .ui-icon-radio-off, .ui-icon-radio-on {
 		background-image:   url(../img/icons-36-white.png)   /*{global-large-icon-set}*/;
 		-moz-background-size: 776px 18px;
 		-o-background-size: 776px 18px;
@@ -1004,13 +1003,6 @@ a.ui-link-inherit {
 	background-position: 	-720px 50%;
 }
 
-/* custom icons */
-.ui-icon-money {
-	background-position: 	-792px 50%;
-}
-.ui-icon-user {
-	background-position: 	-828px 50%;
-}
 
 
 

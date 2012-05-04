@@ -158,7 +158,7 @@
         <div id="calendarPage" data-role="page">
 
             <div data-role="header">
-                <a href="#dashboardPage" data-icon="home">Dashboard</a>
+                <a href="#dashboardPage" id="calendarDashboardBtn" data-icon="home">Dashboard</a>
                 <h1>Shows/Events Calendar</h1>
                 <a href="" class="logoutBtn" data-icon="delete">Logout</a>
             </div>
@@ -180,6 +180,38 @@
             
         </div>
         <!-- End of Calendar Page -->
+
+
+
+
+
+
+
+        <!-- Calendar Day -->
+        <div id="calendarDayPage" data-role="page">
+
+            <div data-role="header">
+                <a href="#calendarPage" data-icon="arrow-l">Back</a>
+                <h1>Shows/Events Calendar</h1>
+                <a href="" class="logoutBtn" data-icon="delete">Logout</a>
+            </div>
+        
+            <div data-role="content" id="calendarDayPageContent"></div>
+            
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li><a href="#sellTicketPage" data-icon="sell">Sell Ticket</a></li>
+                        <li><a href="#" class="ui-btn-active" data-icon="calendar">Calendar</a></li>
+                        <li><a href="#searchPage" data-icon="navsearch">Search</a></li>
+                        <li><a href="#reportsPage" data-icon="report">Reports</a></li>
+                        <li><a href="#settingsPage" data-icon="settings">Settings</a></li>
+                    </ul>
+                </div>
+			</div>
+            
+        </div>
+        <!-- End of Calendar Day Page -->
 
 
 

@@ -55,6 +55,8 @@ ul.showOverview li.showHolder div.showContent div.tickets ul.ticketList li span.
 
 
 /* Calendar */
+
+#calendarBackBtn { display: none; }
 #calendarPageContent .ui-bar { padding: 0; }
 #calendarPageContent .ui-bar .ui-title { display: block; font-size: 20px; margin: 0.4em 30%; overflow: hidden; padding: 0; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
 #calendarPageContent .ui-bar .ui-btn-left { position: absolute; left: 0; top: 0; }
