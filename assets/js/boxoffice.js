@@ -34,7 +34,6 @@ $(document).ready(function() {
  
 
 	// For testing on firefox				
-	/*
 	if (navigator.userAgent.indexOf("Firefox")!=-1) {
 		$.boxofficeUser.brandProperty = "LS";
 		$.boxofficeUser.datasource = "LaughStub";
@@ -49,7 +48,6 @@ $(document).ready(function() {
 		defaultAllPages();
 		$.mobile.changePage($("#sellTicketPage"), { transition: "none"} );	
 	}
-	*/
 	
 	
 	// create a store
@@ -228,7 +226,7 @@ var populateUserFields = function() {
 var initShowSwipe = function(pageContentID) {
 				
 	var showWidth = eval( parseInt( $('ul.showOverview > li','#'+pageContentID).size() ) * 249);
-	$('ul.showOverview','#'+pageContentID).css('width',showWidth);
+	$('#'+pageContentID).css('width',showWidth);
 	
 	/*
 	$('#'+pageContentID).bind("swipeleft",function(event) {
@@ -452,4 +450,18 @@ var clearTicketHolders = function() {
 	$('#ticketholdersHeader').html('Ticket Holders &amp; Guest List');
 	$('#ticketholdersPageContent').html('');
 }
+
+
+
+
+
+var togglePaymentType = function(type) {
+	
+	$('#cashFields').hide();
+	$('#creditcardFields').hide();
+	$('#giftcardFields').hide();
+	$('#'+type+'Fields').show();
+		
+}
+
 

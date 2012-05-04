@@ -82,7 +82,7 @@
         <!-- Dashboard Page -->
         <div id="dashboardPage" data-role="page">
 
-            <div data-role="header">
+            <div data-role="header" data-position="fixed">
                 <h1><span class="venueName"></span> Box Office</h1>
                 <a href="" class="logoutBtn ui-btn-right" data-icon="delete">Logout</a>
             </div>
@@ -304,9 +304,9 @@
                                     
                                         <div data-role="navbar">
                                             <ul>
-                                                <li><a href="#" class="ui-btn-active">Cash</a></li>
-                                                <li><a href="#">Credit Card</a></li>
-                                                <li><a href="#">Gift Card</a></li>
+                                                <li><a href="#" onclick="togglePaymentType('cash');return false;" class="ui-btn-active">Cash</a></li>
+                                                <li><a href="#" onclick="togglePaymentType('creditcard');return false;">Credit Card</a></li>
+                                                <li><a href="#" onclick="togglePaymentType('giftcard');return false;">Gift Card</a></li>
                                             </ul>
                                         </div><!-- /navbar -->
                                         
@@ -320,6 +320,7 @@
                                                 <div class="ui-block-b">
                                                     <label for="cashReceived">Amount Recieved</label>
                                                     <input type="text" name="cashReceived" id="cashReceived" value="$50.00" />
+                                                    <a href="" data-role="button" data-theme="b" data-icon="delete" data-inline="true" data-iconpos="notext">Clear</a>
                                                 </div>
                                                 <div class="ui-block-c">
                                                 	<h3>Change</h3>
@@ -332,37 +333,81 @@
                                                 <div class="ui-block-b"><a href="" data-role="button">$50</a></div>
                                                 <div class="ui-block-c"><a href="" data-role="button">$100</a></div>
                                             </div><!-- /grid-b -->
-                                    	
-                                        	<h2>Customer Information</h2>
-                                    
-                                            <div class="ui-grid-a cashCustomer">
-                                                <div class="ui-block-a">
-                                                	<div data-role="fieldcontain" class="ui-hide-label">
-                                                        <label for="cashFirstName">First Name:</label>
-                                                        <input type="text" name="cashFirstName" id="cashFirstName" value="" placeholder="First Name" />
-                                                    </div>
-                                                </div>
-                                                <div class="ui-block-b">
-                                                	<div data-role="fieldcontain" class="ui-hide-label">
-                                                        <label for="cashLastName">Last Name:</label>
-                                                        <input type="text" name="cashLastName" id="cashLastName" value="" placeholder="Last Name" />
-                                                    </div>
-                                                </div>
-                                                <div class="ui-block-a">
-                                                	<div data-role="fieldcontain" class="ui-hide-label">
-                                                        <label for="cashEmailAddress">Email Address:</label>
-                                                        <input type="text" name="cashEmailAddress" id="cashEmailAddress" value="" placeholder="Email Address" />
-                                                    </div>
-                                                </div>
-                                                <div class="ui-block-b">
-                                                	<div data-role="fieldcontain" class="ui-hide-label">
-                                                        <label for="cashPhoneNumber">Phone Number:</label>
-                                                        <input type="text" name="cashPhoneNumber" id="cashPhoneNumber" value="" placeholder="Phone Number" />
-                                                    </div>
-                                                </div>
-                                            </div><!-- /grid-b -->
                                         
                                         </div>
+                                        
+                                        <div id="creditcardFields">
+                                        	
+                                            <div class="ui-grid-a cardInformation">
+                                                <div class="ui-block-a">
+                                                    <label for="cardNumber">Card Number:</label>
+                                                    <input type="text" name="cardNumber" id="cardNumber" value="" maxlength="16" />
+                                                </div>
+                                                <div class="ui-block-b">
+                                                    <label for="cardExpiration">Expiration Date:</label>
+                                                    <input type="text" name="cardExpiration" id="cardExpiration" value="" placeholder="mm/yyyy" maxlength="4" />
+                                                </div>
+                                                <div class="ui-block-a">
+                                                    <label for="cardCVV">CVV:</label>
+                                                    <input type="text" name="cardCVV" id="cardCVV" value="" maxlength="4" />
+                                                </div>
+                                                <div class="ui-block-b">
+                                                    <label for="cardZipCode">Billing Zip Code:</label>
+                                                    <input type="text" name="cardZipCode" id="cardZipCode" value="" maxlength="10" />
+                                                </div>
+                                            </div>                       
+                                            <div class="ui-grid-a chargeAmount">
+                                                <div class="ui-block-a">
+                                                    <h3>Amount to Charge:</h3>
+                                                </div>
+                                                <div class="ui-block-b">
+                                                    <p id="creditcardTotal">$43.25</p>
+                                                </div>
+                                            </div>                             
+                                            
+                                        </div>
+                                        
+                                        <div id="giftcardFields">
+                                            <label for="giftcardNumber">Gift Card Number:</label>
+                                            <input type="text" name="giftcardNumber" id="giftcardNumber" value="" maxlength="16" />
+                                            <div class="ui-grid-a chargeAmount">
+                                                <div class="ui-block-a">
+                                                    <h3>Amount to Deduct:</h3>
+                                                </div>
+                                                <div class="ui-block-b">
+                                                    <p id="giftcardTotal">$43.25</p>
+                                                </div>
+                                            </div>      
+                                        </div>
+                                        
+										<h2>Customer Information</h2>
+                                    
+                                        <div class="ui-grid-a customerInformation">
+                                            <div class="ui-block-a">
+                                                <div data-role="fieldcontain" class="ui-hide-label">
+                                                    <label for="customerFirstName">First Name:</label>
+                                                    <input type="text" name="customerFirstName" id="customerFirstName" value="" placeholder="First Name" />
+                                                </div>
+                                            </div>
+                                            <div class="ui-block-b">
+                                                <div data-role="fieldcontain" class="ui-hide-label">
+                                                    <label for="customerLastName">Last Name:</label>
+                                                    <input type="text" name="customerLastName" id="customerLastName" value="" placeholder="Last Name" />
+                                                </div>
+                                            </div>
+                                            <div class="ui-block-a">
+                                                <div data-role="fieldcontain" class="ui-hide-label">
+                                                    <label for="customerEmailAddress">Email Address:</label>
+                                                    <input type="text" name="customerEmailAddress" id="customerEmailAddress" value="" placeholder="Email Address" />
+                                                </div>
+                                            </div>
+                                            <div class="ui-block-b">
+                                                <div data-role="fieldcontain" class="ui-hide-label">
+                                                    <label for="customerPhoneNumber">Phone Number:</label>
+                                                    <input type="text" name="customerPhoneNumber" id="customerPhoneNumber" value="" placeholder="Phone Number" />
+                                                </div>
+                                            </div>
+                                        </div>                                       
                                         
                                         <div id="buyTicketContainer">
                                         	<input type="submit" data-theme="b" name="buyTicket" id="buyTicket" value="Complete Order" />

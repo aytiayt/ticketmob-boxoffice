@@ -1,6 +1,6 @@
 /* custom icons */
-.ui-icon-money span.ui-icon { background-position: -792px 50% !important; }
-.ui-icon-user span.ui-icon { background-position: -828px 50% !important; }
+.ui-icon-money span.ui-icon-home { background-position: -792px 50% !important; }
+.ui-icon-user span.ui-icon-home { background-position: -828px 50% !important; }
 
 
 
@@ -174,7 +174,7 @@ table.showCalendar td.nextmonth span.dayHeader { background: none; background-im
 #sellTicketPageContent #orderTotalContainer tr.odd { background: #f1f1f1; }
 
 
-#cashReceived { width: 130px; margin: 0 auto 5px auto; text-align: center; font-size: 24px; padding: 10px 0; }
+#cashReceived { width: 120px; margin: 0 auto 5px auto; text-align: center; font-size: 24px; padding: 10px 0; display: inline-block; }
 #sellTicketPageContent .cashRegister { margin: 0 0 15px 0; }
 #sellTicketPageContent .cashRegister label,
 #sellTicketPageContent .cashRegister h3 { margin: 0; text-align: center; font-size: 18px; font-weight: bold; padding: 5px 0; line-height: 1.2em; }
@@ -182,7 +182,23 @@ table.showCalendar td.nextmonth span.dayHeader { background: none; background-im
 #sellTicketPageContent .cashRegister #cashChange { color: #CB492F; }
 #sellTicketPageContent .cashRegister .ui-btn { margin: 5px; }
 #sellTicketPageContent .cashRegister .ui-btn-inner { padding: 1.1em 20px; font-size: 24px; }
-#sellTicketPageContent .cashCustomer .ui-field-contain { margin: 5px 0; padding: 0 5px; }
-#sellTicketPageContent .cashCustomer .ui-field-contain input { width: 94%; }
-#sellTicketPageContent #buyTicketContainer { margin: 15px 0 0 0; }
+#sellTicketPageContent .cashRegister .ui-btn-icon-notext .ui-btn-inner { padding: 0; }
+
+#sellTicketPageContent .chargeAmount  { margin: 20px 0; padding: 20px; border-top: 1px dashed #aaa; border-bottom: 1px dashed #aaa; }
+#sellTicketPageContent .chargeAmount h3 { margin: 0; text-align: left; font-size: 22px; line-height: 30px; font-weight: bold; color: #CB492F; }
+#sellTicketPageContent .chargeAmount p { margin: 0; text-align: left; font-size: 26px; line-height: 30px; color: #CB492F; }
+
+#sellTicketPageContent .paymentColumnContent .ui-field-contain { margin: 5px 0; padding: 0 10px 0 0; }
+#sellTicketPageContent .paymentColumnContent .ui-field-contain input { width: 94%; }
 #sellTicketPageContent #buyTicketContainer .ui-btn-inner { padding: 1.1em 20px; font-size: 22px; }
+
+#sellTicketPageContent #creditcardFields label,
+#sellTicketPageContent #giftcardFields label { margin: 0; text-align: left; font-size: 18px; font-weight: bold; padding: 5px 0; line-height: 1.2em; }
+#sellTicketPageContent #creditcardFields input { width: 90%; }
+#sellTicketPageContent #giftcardFields input { width: 95%; }
+
+#sellTicketPageContent #cashFields,
+#sellTicketPageContent #creditcardFields,
+#sellTicketPageContent #giftcardFields { margin: 0 0 15px 0; }
+#sellTicketPageContent #creditcardFields,
+#sellTicketPageContent #giftcardFields { display: none; }
