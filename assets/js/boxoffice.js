@@ -34,6 +34,7 @@ $(document).ready(function() {
  
 
 	// For testing on firefox				
+	/*
 	if (navigator.userAgent.indexOf("Firefox")!=-1) {
 		$.boxofficeUser.brandProperty = "LS";
 		$.boxofficeUser.datasource = "LaughStub";
@@ -48,6 +49,7 @@ $(document).ready(function() {
 		defaultAllPages();
 		$.mobile.changePage($("#calendarPage"), { transition: "none"} );	
 	}
+	*/
 
 	
 	
@@ -122,7 +124,9 @@ $(document).ready(function() {
 	
 	$(document).bind("pagechange",function(event, data) {
 		// set current view for orientation changing back and forth
-		$.boxofficeSettings.landscapePage = data.toPage.attr("id")
+		if(data.toPage.attr("id")!="ticketholdersPage") {
+			$.boxofficeSettings.landscapePage = data.toPage.attr("id");
+		}
 		
 	});
 
@@ -338,7 +342,7 @@ var navigateTicketHolders = function(showTimingID) {
 			}
 			$('#ticketholdersHeader').html(data.HEADER);
 			$('#ticketholdersPageContent').html(data.HTML).trigger("create");
-			if(showTimingID>0){
+			if(showTimingID>0) {
 				$.mobile.hidePageLoadingMsg();
 			}
 		}
