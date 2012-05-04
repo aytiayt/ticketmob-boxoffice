@@ -238,14 +238,14 @@ var initShowSwipe = function(pageContentID) {
 		var currPos = parseInt($('ul.showOverview','#'+pageContentID).css('left').replace('px',''));
 		var remaining = $('ul.showOverview','#'+pageContentID).width()+currPos;
 		if(remaining>996) {
-			$('ul.showOverview','#'+pageContentID).animate({left: eval(currPos-996)},200);
+			$('ul.showOverview','#'+pageContentID).animate({left: eval(currPos-996)},500);
 		}
 	});
 	
 	$('#'+pageContentID).bind("swiperight",function(event) {
 		var currPos = parseInt($('ul.showOverview','#'+pageContentID).css('left').replace('px',''));
 		if(currPos<0) {
-			$('ul.showOverview','#'+pageContentID).animate({left: eval(currPos+996)},200);
+			$('ul.showOverview','#'+pageContentID).animate({left: eval(currPos+996)},500);
 		}
 	});
 			
