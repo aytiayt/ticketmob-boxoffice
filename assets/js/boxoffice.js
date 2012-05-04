@@ -10,9 +10,11 @@ $(document).bind("mobileinit", function() {
 $(document).ready(function() {
     
 	// For testing since there is no mobileinit on desktop
+	/*
 	$.support.cors = true;
 	$.mobile.allowCrossDomainPages = true;
 	$.mobile.defaultPageTransition = 'none';
+	*/
 	// End for testing
 	
 	
@@ -34,6 +36,7 @@ $(document).ready(function() {
  
 
 	// For testing on firefox				
+	/*
 	if (navigator.userAgent.indexOf("Firefox")!=-1) {
 		$.boxofficeUser.brandProperty = "LS";
 		$.boxofficeUser.datasource = "LaughStub";
@@ -48,7 +51,7 @@ $(document).ready(function() {
 		defaultAllPages();
 		$.mobile.changePage($("#dashboardPage"), { transition: "none"} );	
 	}
-
+	*/
 	
 	
 	// create a store
@@ -104,39 +107,40 @@ $(document).ready(function() {
 	$('.logoutBtn').click(function() {
 		userLogout();
 	});
-	
-	
-	
-
-	$(window).bind('orientationchange', function(e) {
-		if($.boxofficeUser.userID > 0) {
-			if(e.orientation == "portrait") {
-				$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );
-			} else {
-				//landscape
-				$.mobile.changePage($("#"+$.boxofficeSettings.landscapePage), { transition: "none"} );
-			}
-		}
-	});
-	
-	
-	$(document).bind("pagebeforechange",function(event, data) {
-		$.mobile.showPageLoadingMsg();
-	});
-	
-	$(document).bind("pagechange",function(event, data) {
-		$.mobile.hidePageLoadingMsg();
-		// set current view for orientation changing back and forth
-		if(data.toPage.attr("id")!="ticketholdersPage") {
-			$.boxofficeSettings.landscapePage = data.toPage.attr("id");
-		}
-		
-	});
 
 
 });
 
 //$(document).bind("pageinit", function() { });
+
+
+
+
+$(window).bind('orientationchange', function(e) {
+	if($.boxofficeUser.userID > 0) {
+		if(e.orientation == "portrait") {
+			$('#ticketholdersPageContent').trigger('create');
+			$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );
+		} else {
+			//landscape
+			$.mobile.changePage($("#"+$.boxofficeSettings.landscapePage), { transition: "none"} );
+		}
+	}
+});
+
+
+$(document).bind("pagebeforechange",function(event, data) {
+	$.mobile.showPageLoadingMsg();
+});
+
+$(document).bind("pagechange",function(event, data) {
+	$.mobile.hidePageLoadingMsg();
+	// set current view for orientation changing back and forth
+	if(data.toPage.attr("id")!="ticketholdersPage") {
+		$.boxofficeSettings.landscapePage = data.toPage.attr("id");
+	}
+	
+});
 
 
 
@@ -367,7 +371,6 @@ var navigateTicketHolders = function(showTimingID) {
 			}
 			$('#ticketholdersHeader').html(data.HEADER);
 			$('#ticketholdersPageContent').html(data.HTML).trigger('create');
-			$('#ticketholdersPageContent').find('ul').listview('refresh');
 			
 		}
 	});
