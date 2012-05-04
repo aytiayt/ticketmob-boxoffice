@@ -47,7 +47,7 @@ $(document).ready(function() {
 		$.boxofficeUser.venueName = "Irvine Improv";
 		$.boxofficeUser.venuesOwned = "189,190,44,109,196,200,201,220,1350,1837,375,1677,658,61,9,156,193,202,43,198,2139,197,194,45,203,204,195,990,199,685,127,654,191";
 		defaultAllPages();
-		$.mobile.changePage($("#calendarPage"), { transition: "none"} );	
+		$.mobile.changePage($("#dashboardPage"), { transition: "none"} );	
 	}
 	*/
 
@@ -122,7 +122,12 @@ $(document).ready(function() {
 	});
 	
 	
+	$(document).bind("pagebeforechange",function(event, data) {
+		$.mobile.showPageLoadingMsg();
+	});
+	
 	$(document).bind("pagechange",function(event, data) {
+		$.mobile.hidePageLoadingMsg();
 		// set current view for orientation changing back and forth
 		if(data.toPage.attr("id")!="ticketholdersPage") {
 			$.boxofficeSettings.landscapePage = data.toPage.attr("id");
@@ -224,6 +229,30 @@ var populateUserFields = function() {
 
 
 
+var initShowSwipe = function(pageContentID) {
+				
+	var showWidth = eval( parseInt( $('ul.showOverview > li','#'+pageContentID).size() ) * 249);
+	$('ul.showOverview','#'+pageContentID).css('width',showWidth);
+	
+	$('#'+pageContentID).bind("swipeleft",function(event) {
+		var currPos = parseInt($('ul.showOverview','#'+pageContentID).css('left').replace('px',''));
+		var remaining = $('ul.showOverview','#'+pageContentID).width()+currPos;
+		if(remaining>996) {
+			$('ul.showOverview','#'+pageContentID).animate({left: eval(currPos-996)},200);
+		}
+	});
+	
+	$('#'+pageContentID).bind("swiperight",function(event) {
+		var currPos = parseInt($('ul.showOverview','#'+pageContentID).css('left').replace('px',''));
+		if(currPos<0) {
+			$('ul.showOverview','#'+pageContentID).animate({left: eval(currPos+996)},200);
+		}
+	});
+			
+}
+
+
+
 var defaultAllPages = function() {
 	// set the default page views
 	populateUserFields();
@@ -240,12 +269,11 @@ var defaultAllPages = function() {
 
 var defaultDashboard = function() {
 
-	$.mobile.showPageLoadingMsg();
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=dashboardcontent&venueID='+$.boxofficeUser.venueID+'&datasource='+$.boxofficeUser.datasource+'&brandProperty='+$.boxofficeUser.brandProperty+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
 			$('#dashboardPageContent').html(data.HTML).trigger("create");
-			$.mobile.hidePageLoadingMsg();
+			initShowSwipe('dashboardPageContent');
 		}
 	});
 	
@@ -274,6 +302,7 @@ var navigateCalendar = function(view,date) {
 			$.getJSON(surl, function(data) {
 				if(data.SUCCESS) {
 					$("#calendarDayPageContent").html(data.HTML).trigger("create");
+					initShowSwipe('calendarDayPageContent');
 					$.mobile.changePage($("#calendarDayPage"), { transition: "none"} );
 				}
 			});
@@ -284,7 +313,6 @@ var navigateCalendar = function(view,date) {
 				console.log(data);
 				if(data.SUCCESS) {
 					$('#calendarPageContent').html(data.HTML).trigger("create");
-					$.mobile.changePage($("#calendarPage"), { transition: "none"} );
 				}
 			});
 			break;
@@ -324,9 +352,6 @@ var defaultTicketHolders = function() {
 
 var navigateTicketHolders = function(showTimingID) {
 
-	if(showTimingID>0){
-		$.mobile.showPageLoadingMsg();
-	}
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=ticketholders&venueID='+$.boxofficeUser.venueID+'&datasource='+$.boxofficeUser.datasource+'&showTimingID='+showTimingID+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
@@ -342,9 +367,6 @@ var navigateTicketHolders = function(showTimingID) {
 			}
 			$('#ticketholdersHeader').html(data.HEADER);
 			$('#ticketholdersPageContent').html(data.HTML).trigger("create");
-			if(showTimingID>0) {
-				$.mobile.hidePageLoadingMsg();
-			}
 		}
 	});
 	
@@ -356,14 +378,12 @@ var navigateTicketHolders = function(showTimingID) {
 
 var showInfo = function(showTimingID) {
 	
-	$.mobile.showPageLoadingMsg();
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=showinfo&showTimingID='+showTimingID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
 			showAlert('Show/Event Information',data.HTML);
 			$('p.alert-2','#alertBox').html(data.HTML);
 			$('a.alert-ok','#alertBox').show();
-			$.mobile.hidePageLoadingMsg();
 		}
 	});
 	
