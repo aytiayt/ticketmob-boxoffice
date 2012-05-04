@@ -34,7 +34,6 @@ $(document).ready(function() {
  
 
 	// For testing on firefox				
-	/*
 	if (navigator.userAgent.indexOf("Firefox")!=-1) {
 		$.boxofficeUser.brandProperty = "LS";
 		$.boxofficeUser.datasource = "LaughStub";
@@ -49,7 +48,6 @@ $(document).ready(function() {
 		defaultAllPages();
 		$.mobile.changePage($("#dashboardPage"), { transition: "none"} );	
 	}
-	*/
 
 	
 	
@@ -234,6 +232,7 @@ var initShowSwipe = function(pageContentID) {
 	var showWidth = eval( parseInt( $('ul.showOverview > li','#'+pageContentID).size() ) * 249);
 	$('ul.showOverview','#'+pageContentID).css('width',showWidth);
 	
+	/*
 	$('#'+pageContentID).bind("swipeleft",function(event) {
 		var currPos = parseInt($('ul.showOverview','#'+pageContentID).css('left').replace('px',''));
 		var remaining = $('ul.showOverview','#'+pageContentID).width()+currPos;
@@ -248,6 +247,7 @@ var initShowSwipe = function(pageContentID) {
 			$('ul.showOverview','#'+pageContentID).animate({left: eval(currPos+996)},500);
 		}
 	});
+	*/
 			
 }
 
@@ -366,7 +366,9 @@ var navigateTicketHolders = function(showTimingID) {
 				$('#ticketholdersNext').attr('onclick','navigateTicketHolders('+data.NEXT+');return false;').show();
 			}
 			$('#ticketholdersHeader').html(data.HEADER);
-			$('#ticketholdersPageContent').html(data.HTML).trigger("create");
+			$('#ticketholdersPageContent').html(data.HTML).trigger('create');
+			$('#ticketholdersPageContent').find('ul').listview('refresh');
+			
 		}
 	});
 	

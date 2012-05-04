@@ -34,7 +34,7 @@
 /* Show Overview */
 #dashboardPageContent,
 #calendarDayPageContent { padding: 15px 14px; }
-div.showOverviewContainer { position: relative; height: 610px; width: 100%; overflow: hidden; }
+div.showOverviewContainer { position: relative; height: 610px; width: 100%; overflow: hidden; overflow: auto; }
 ul.showOverview { list-style: none; margin: 0; padding: 0; display: block; width: auto; height: 610px; position: absolute; top: 0; left: 0; }
 ul.showOverview li.showHolder { width: 249px; float: left; overflow: hidden; }
 ul.showOverview li.showHolder div.showContent { height: 560px; background: #e8e8e8; border-radius: 5px; box-shadow: 0 0 10px #d0d0d0 inset; padding: 15px; margin: 10px; }
