@@ -108,38 +108,34 @@ $(document).ready(function() {
 		userLogout();
 	});
 
-
-});
-
-//$(document).bind("pageinit", function() { });
-
-
-
-
-$(window).bind('orientationchange', function(e) {
-	if($.boxofficeUser.userID > 0) {
-		if(e.orientation == "portrait") {
-			$('#ticketholdersPageContent').trigger('create');
-			$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );
-		} else {
-			//landscape
-			$.mobile.changePage($("#"+$.boxofficeSettings.landscapePage), { transition: "none"} );
+	$(window).bind('orientationchange', function(e) {
+		if($.boxofficeUser.userID > 0) {
+			if(e.orientation == "portrait") {
+				//$('#ticketholdersPageContent').trigger('create');
+				$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );
+			} else {
+				//landscape
+				$.mobile.changePage($("#"+$.boxofficeSettings.landscapePage), { transition: "none"} );
+			}
 		}
-	}
-});
+	});
 
 
-$(document).bind("pagebeforechange",function(event, data) {
-	$.mobile.showPageLoadingMsg();
-});
-
-$(document).bind("pagechange",function(event, data) {
-	$.mobile.hidePageLoadingMsg();
-	// set current view for orientation changing back and forth
-	if(data.toPage.attr("id")!="ticketholdersPage") {
-		$.boxofficeSettings.landscapePage = data.toPage.attr("id");
-	}
 	
+	
+	$(document).bind("pagebeforechange",function(event, data) {
+		$.mobile.showPageLoadingMsg();
+	});
+	
+	$(document).bind("pagechange",function(event, data) {
+		$.mobile.hidePageLoadingMsg();
+		// set current view for orientation changing back and forth
+		if(data.toPage.attr("id")!="ticketholdersPage") {
+			$.boxofficeSettings.landscapePage = data.toPage.attr("id");
+		}
+		
+	});
+
 });
 
 
