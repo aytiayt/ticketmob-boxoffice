@@ -155,8 +155,8 @@ table.showCalendar td.nextmonth span.dayHeader { background: none; background-im
 #sellTicketPageContent ul.ticketQtyList input.qtyField { width: 20px; margin: 0; text-align: center; display: inline-block; padding: 0 3px; height: 24px; margin: 0 1px 0 0; float: left; }
 #sellTicketPageContent div.qtyContainer { height: 26px; width: 90px; float: left; }
 #sellTicketPageContent div.qtyContainer .ui-btn-icon-notext { margin: 0 1px 0 0; float: left; }
-#sellTicketPageContent ul.ticketQtyList h3 { color: #CB492F; font-size: 16px; margin: 0 0 0 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-#sellTicketPageContent ul.ticketQtyList p { font-size: 14px; margin: 0 0 0 90px; }
+#sellTicketPageContent ul.ticketQtyList h3 { color: #CB492F; font-size: 16px; margin: 0 0 0 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 140px; }
+#sellTicketPageContent ul.ticketQtyList p { font-size: 14px; margin: 0 0 0 90px; width: 140px; }
 #sellTicketPageContent ul.ticketQtyList li { padding: 0 0 10px 0; display: block; }
 
 #sellTicketPageContent #discountContainer { border-bottom: 1px dashed #aaa; height: 84px; margin: 0 0 10px 0; padding: 0 0 10px 0; }
@@ -174,4 +174,15 @@ table.showCalendar td.nextmonth span.dayHeader { background: none; background-im
 #sellTicketPageContent #orderTotalContainer tr.odd { background: #f1f1f1; }
 
 
-
+#cashReceived { width: 130px; margin: 0 auto 5px auto; text-align: center; font-size: 24px; padding: 10px 0; }
+#sellTicketPageContent .cashRegister { margin: 0 0 15px 0; }
+#sellTicketPageContent .cashRegister label,
+#sellTicketPageContent .cashRegister h3 { margin: 0; text-align: center; font-size: 18px; font-weight: bold; padding: 5px 0; line-height: 1.2em; }
+#sellTicketPageContent .cashRegister p { margin: 0; text-align: center; font-size: 24px; padding: 11px 0 0 0; }
+#sellTicketPageContent .cashRegister #cashChange { color: #CB492F; }
+#sellTicketPageContent .cashRegister .ui-btn { margin: 5px; }
+#sellTicketPageContent .cashRegister .ui-btn-inner { padding: 1.1em 20px; font-size: 24px; }
+#sellTicketPageContent .cashCustomer .ui-field-contain { margin: 5px 0; padding: 0 5px; }
+#sellTicketPageContent .cashCustomer .ui-field-contain input { width: 94%; }
+#sellTicketPageContent #buyTicketContainer { margin: 15px 0 0 0; }
+#sellTicketPageContent #buyTicketContainer .ui-btn-inner { padding: 1.1em 20px; font-size: 22px; }
