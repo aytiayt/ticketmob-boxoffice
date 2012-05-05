@@ -465,3 +465,54 @@ var togglePaymentType = function(type) {
 }
 
 
+
+var changeQty = function(amount,qtyID) {
+	var qtyField = $('#qty'+qtyID);
+	var newQty = eval(parseInt($(qtyField).val())+amount);
+	if(newQty < 0) {
+		$(qtyField).val(0);	
+	} else {
+		$(qtyField).val(newQty);
+	}
+}
+
+var clearCashReceived = function() {
+	$('#cashReceived').val('0.00');
+	calculateChange();
+}
+
+var checkCashRecieved = function() {
+	if(isNaN($('#cashReceived').val())) {
+		$('#cashReceived').val('0.00');
+		calculateChange();
+	} else {
+		$('#cashReceived').val(parseFloat($('#cashReceived').val()).toFixed(2))
+	}
+}
+
+var changeCashReceived = function(amount) {
+	var newVal = eval(parseFloat($('#cashReceived').val())+amount);
+	if (newVal<0) {
+		$('#cashReceived').val('0.00');
+	} else {
+		$('#cashReceived').val(parseFloat(newVal).toFixed(2));
+	}
+	
+	// calculate change
+	calculateChange();
+}
+
+var calculateChange = function() {
+	var totalAmount = parseFloat($('#checkoutTotal').val());
+	var cashRecieved = parseFloat($('#cashReceived').val());
+	var changeAmount = eval(cashRecieved-totalAmount);
+	
+	if(changeAmount > 0) {
+		$('#cashChange').html('$'+parseFloat(changeAmount).toFixed(2));
+		$('#changeTotal').val(parseFloat(changeAmount).toFixed(2));
+	} else {
+		$('#cashChange').html('$0.00');
+		$('#changeTotal').val('0.00');
+	}
+	
+}
