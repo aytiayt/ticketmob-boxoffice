@@ -278,6 +278,18 @@ var defaultDashboard = function() {
 
 
 var defaultSellTicket = function() {
+	navigateSellTicket(0,0,0);
+}
+
+var navigateSellTicket = function(showTimingID,qty,showTierID) {
+
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=sellticket&venueID='+$.boxofficeUser.venueID+'&showTimingID='+showTimingID+'&qty='+qty+'&showTierID='+showTierID+'&datasource='+$.boxofficeUser.datasource+'&brandProperty='+$.boxofficeUser.brandProperty+'&callback=?';
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			$("#sellTicketPageContent").html(data.HTML).trigger("create");
+			$.mobile.changePage($("#sellTicketPage"), { transition: "none"} );
+		}
+	});
 	
 }
 
@@ -375,12 +387,12 @@ var navigateTicketHolders = function(showTimingID) {
 
 var showInfo = function(showTimingID) {
 	
+	$.mobile.showPageLoadingMsg();
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=showinfo&showTimingID='+showTimingID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
 			showAlert('Show/Event Information',data.HTML);
-			$('p.alert-2','#alertBox').html(data.HTML);
-			$('a.alert-ok','#alertBox').show();
+			$.mobile.hidePageLoadingMsg();
 		}
 	});
 	
@@ -389,6 +401,8 @@ var showInfo = function(showTimingID) {
 
 
 var updateSelectedVenue = function() {
+	
+	$.mobile.showPageLoadingMsg();
 	
 	$.boxofficeUser.venueID = $('#venueID').val();
 	$.boxofficeUser.venueName = $('#venueID option:selected').text();
@@ -410,6 +424,7 @@ var updateSelectedVenue = function() {
 	
 	data.save(user,function(){
 		defaultAllPages();
+		$.mobile.hidePageLoadingMsg();
 	});
 
 }
@@ -461,7 +476,19 @@ var togglePaymentType = function(type) {
 	$('#creditcardFields').hide();
 	$('#giftcardFields').hide();
 	$('#'+type+'Fields').show();
-		
+	
+	switch(type) {
+		case 'cash':
+			$('#paymentTypeID').val(2);
+			break;	
+		case 'creditcard':
+			$('#paymentTypeID').val(1);
+			break;	
+		case 'giftcard':
+			$('#paymentTypeID').val(3);
+			break;	
+	}
+
 }
 
 
@@ -474,6 +501,7 @@ var changeQty = function(amount,qtyID) {
 	} else {
 		$(qtyField).val(newQty);
 	}
+	updateShoppingCart();
 }
 
 var clearCashReceived = function() {
@@ -518,4 +546,62 @@ var calculateChange = function() {
 }
 
 
+var updateShoppingCart = function() {
+	var showTimingID = $('#showTimingID').val();	
+	var qty = 0;	
+	var showTierList = '';	
+	var couponID = 0;
+	var paymentTypeID = $('#paymentTypeID').val();
+	var isVipGuestlistCoupon = false;
+	
+	$('input','#ticketContainer>ul.ticketQtyList').each(function(i){
+		var showTierID = parseInt($(this).attr('id').replace('qty',''));
+		var thisQty = parseInt($(this).val());
+		qty = eval(qty+thisQty);
+		if(showTierID > 0) {
+			if(showTierList.length) {
+				showTierList = showTierList + ';';	
+			}
+			showTierList = showTierList + showTierID + ':' + thisQty;
+		}
+	});
+	
+	if(showTierList.length) {
+		showTierList = showTimingID + '|' + showTierList;
+		$('#showTierList').val(showTierList);
+	} else {
+		showTierList = "0|0:0";
+	}
+	
+	if($('#appliedCouponID').val() > 0) {
+		couponID = $('#appliedCouponID').val();
+	} else {
+		couponID = $('#discountID').val();
+	}
+	
+	if(couponID=='VIP' || couponID=='GuestList') {
+		isVipGuestlistCoupon = true;
+		couponID=0;
+	}
+	
+	$.mobile.showPageLoadingMsg();
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=updateticketprice&venueID='+$.boxofficeUser.venueID+'&showTimingID='+showTimingID+'&qty='+qty+'&showTierList='+showTierList+'&couponID='+couponID+'&isVipGuestlistCoupon='+isVipGuestlistCoupon+'&paymentTypeID='+paymentTypeID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			$('#orderTotalContainer').html(data.CARTDISPLAY).trigger('create');
+			$('#cashTotal, #creditcardTotal, #giftcardTotal').html(data.TOTALFORMATTED);
+            $('#checkoutTotal').val(data.TOTAL);
+			calculateChange();
+			$.mobile.hidePageLoadingMsg();
+		}
+	});
+	
+}
+
+
+var applyCouponCode = function () {
+	// Look up the coupon code
+	
+	
+}
 
