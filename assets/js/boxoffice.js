@@ -422,7 +422,7 @@ var navigateLandscapeTicketHolders = function(showTimingID,filter) {
 }
 
 
-var openTicketHolderInfo = function(ticketID) {
+var openTicketHolderInfo = function(ticketID,msg) {
 	
 	$.mobile.showPageLoadingMsg();
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=ticketholderDetails&ticketID='+ticketID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
@@ -431,9 +431,55 @@ var openTicketHolderInfo = function(ticketID) {
 			$('#ticketholderDetailsContent').html(data.HTML).trigger('create');
 		}
 		$.mobile.changePage("#ticketholderDetails");
+		if(msg.length) {
+			switch(msg) {
+				case 'email':
+					var theMsg = 'Ticket has been emailed to customer!';
+					break;
+				default:
+					var theMsg = msg + ' ticket';
+					if(parseInt(msg)!=1){
+						theMsg = theMsg + 's';	
+					}
+					theMsg = theMsg + ' have been checked in.';
+					break;	
+			}
+		
+			$('#ticketholderDetailsContent').prepend('<div class="ui-body ui-body-e ticketholderDetailsMessage" id="ticketholderDetailsMessage"><p>'+theMsg+'</p></div>');
+			window.setTimeout(function(){
+				$('#ticketholderDetailsMessage').fadeOut(500,function(){
+					$(this).remove();
+				});
+			},5000);
+		}
 		$.mobile.hidePageLoadingMsg();
 	});
 
+}
+
+var emailTickets = function(ticketID) {
+	$.mobile.showPageLoadingMsg();
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=emailTicketHolder&ticketID='+ticketID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			openTicketHolderInfo(ticketID,'email');
+		}
+		$.mobile.hidePageLoadingMsg();
+	});
+}
+
+var checkinTicketHolder = function() {
+	var ticketID = $('#ticketID').val();
+	var qty = $('#ticketCheckinQty').val();
+	
+	$.mobile.showPageLoadingMsg();
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=checkinTickets&ticketID='+ticketID+'&qty='+qty+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			openTicketHolderInfo(ticketID,data.TOTALQTY);
+		}
+		$.mobile.hidePageLoadingMsg();
+	});
 }
 
 

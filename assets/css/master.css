@@ -140,8 +140,9 @@ span.calendarCount { font-size: 12px; border: 1px solid #111; border-radius: 10p
 #ticketholderDetails h2 { font-weight: bold; font-size: 16px; margin: 0 0 10px 0; }
 #ticketholderDetails p { font-size: 14px; margin: 0 0 5px 0; }
 #ticketholderDetails #ticketholderForm { margin: 10px 0; padding: 0; border-top: 1px dashed #aaa; }
-
-
+#ticketholderDetails .ticketholderDetailsMessage { margin: 0 0 10px 0; }
+#ticketholderDetails .ticketholderDetailsMessage p { font-size: 16px; font-weight: bold; text-align: center; height: 30px; line-height: 30px; }
+#ticketholderDetails #allCheckedIn { margin: 10px 0; }
 
 
 
