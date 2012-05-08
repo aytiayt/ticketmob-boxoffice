@@ -10,14 +10,20 @@
 #loginForm { padding: 430px 70px 0 70px; }
 #loginBtnContainer { margin-left: 22%; }
 #loginBtnContainer .ui-btn-block { width: 79%; }
-html.portrait #loginForm { padding: 465px 0 0 0; }
-html.portrait #loginForm .ui-field-contain .ui-controlgroup-label,
-html.portrait #loginForm .ui-field-contain label.ui-input-text { width: 15%; }
-html.portrait #loginForm .ui-field-contain .ui-controlgroup-controls { width: 75%; }
-html.portrait #loginForm .ui-field-contain input.ui-input-text { width: 64%; }
-html.portrait #loginBtnContainer { margin-left: 17%; }
 
-
+/* Portrait */
+@media screen and (orientation:portrait) {
+	#loginForm { padding: 465px 0 0 0; }
+	#loginForm .ui-field-contain .ui-controlgroup-label,
+	#loginForm .ui-field-contain label.ui-input-text { width: 15%; }
+	#loginForm .ui-field-contain .ui-controlgroup-controls { width: 75%; }
+	#loginForm .ui-field-contain input.ui-input-text { width: 64%; }
+	#loginBtnContainer { margin-left: 17%; }
+}
+/* Landscape */
+@media screen and (orientation:landscape) {
+    /* Landscape styles */
+}
 
 
 
@@ -124,7 +130,18 @@ span.calendarCount { font-size: 12px; border: 1px solid #111; border-radius: 10p
 /* Ticket Holders */
 #ticketholdersPage .ui-header .ui-title { margin: 0.6em 11% 0.8em 11%; }
 #ticketholdersPage .ui-li-heading { text-transform: capitalize; }
-#ticketholdersPageContent .ui-navbar { margin: 0 0 17px 0; }
+#ticketholdersPageContent .ui-navbar,
+#ticketholdersLandscapePageContent .ui-navbar { margin: 0 0 17px 0; }
+
+
+
+
+/* Ticket Details */
+#ticketholderDetails h2 { font-weight: bold; font-size: 16px; margin: 0 0 10px 0; }
+#ticketholderDetails p { font-size: 14px; margin: 0 0 5px 0; }
+#ticketholderDetails #ticketholderForm { margin: 10px 0; padding: 0; border-top: 1px dashed #aaa; }
+
+
 
 
 

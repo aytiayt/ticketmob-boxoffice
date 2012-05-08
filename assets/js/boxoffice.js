@@ -24,6 +24,7 @@ $(document).ready(function() {
 					
 	$.boxofficeSettings = {};
 	$.boxofficeSettings.landscapePage = 'dashboardPage';
+	$.boxofficeSettings.currOrientation = 'landscape';
  
 
 	// For testing on firefox				
@@ -102,6 +103,7 @@ $(document).ready(function() {
 	$(window).bind('orientationchange', function(e) {
 		if($.boxofficeUser.userID > 0) {
 			if(e.orientation == "portrait") {
+				$.boxofficeSettings.currOrientation = 'portrait';
 				//$('#ticketholdersPageContent').trigger('create');
 				$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );
 				if($("#ticketholdersPageContent").html().length==0){
@@ -109,6 +111,7 @@ $(document).ready(function() {
 				}
 			} else {
 				//landscape
+				$.boxofficeSettings.currOrientation = 'landscape';
 				$.mobile.changePage($("#"+$.boxofficeSettings.landscapePage), { transition: "none"} );
 			}
 		}
@@ -382,24 +385,61 @@ var navigateTicketHolders = function(showTimingID) {
 }
 
 var filterTicketholderList = function(filterBy) {
-	$('li','#ticketholderList').hide();
-	$('li.ui-li-divider','#ticketholderList').show();
+	$('li','ul.ticketholderList').hide();
+	$('li.ui-li-divider','ul.ticketholderList').show();
 	
 	switch(filterBy) {
 		case 'willcall':
-			$('li.willcall','#ticketholderList').show();
+			$('li.willcall','ul.ticketholderList').show();
 			break
 		case 'vip':
-			$('li.vip','#ticketholderList').show();
+			$('li.vip','ul.ticketholderList').show();
 			break
 		case 'guestlist':
-			$('li.guestlist','#ticketholderList').show();
+			$('li.guestlist','ul.ticketholderList').show();
 			break
 		default:
-			$('li','#ticketholderList').show();
+			$('li','ul.ticketholderList').show();
 			break;	
 	}
 }
+
+var navigateLandscapeTicketHolders = function(showTimingID,filter) {
+	navigateTicketHolders(showTimingID);
+	$.mobile.changePage($("#ticketholdersLandscapePage"), { transition: "none"} );
+	$.mobile.showPageLoadingMsg();
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=ticketholders&venueID='+$.boxofficeUser.venueID+'&datasource='+$.boxofficeUser.datasource+'&showTimingID='+showTimingID+'&filter='+filter+'&callback=?';
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			$('#ticketholdersLandscapeHeader').html(data.HEADER);
+			$('#ticketholdersLandscapePageContent').html(data.HTML).trigger('create');
+		}
+		filterTicketholderList(filter);
+		$.mobile.changePage($("#ticketholdersLandscapePage"), { transition: "none"} );
+		$.mobile.hidePageLoadingMsg();
+	});
+	
+}
+
+
+var openTicketHolderInfo = function(ticketID) {
+	
+	$.mobile.showPageLoadingMsg();
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=ticketholderDetails&ticketID='+ticketID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			$('#ticketholderDetailsContent').html(data.HTML).trigger('create');
+		}
+		$.mobile.changePage("#ticketholderDetails");
+		$.mobile.hidePageLoadingMsg();
+	});
+
+}
+
+
+
+
+
 
 
 

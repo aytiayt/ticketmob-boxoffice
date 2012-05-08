@@ -318,16 +318,51 @@
         <div id="ticketholdersPage" data-role="page">
         
         	<div data-role="header" data-position="fixed">
-                <a href="" id="ticketholdersPrev" class="ui-btn-left" onclick="return false;" data-icon="arrow-l">Prev</a>
+                <a href="#" id="ticketholdersPrev" class="ui-btn-left" onclick="return false;" data-icon="arrow-l">Prev</a>
                 <h1 id="ticketholdersHeader">Ticket Holders &amp; Guest List</h1>
-                <a href="" id="ticketholdersNext" class="ui-btn-right" onclick="return false;" data-icon="arrow-r" data-iconpos="right">Next</a>
+                <a href="#" id="ticketholdersNext" class="ui-btn-right" onclick="return false;" data-icon="arrow-r" data-iconpos="right">Next</a>
             </div>
             
             <div data-role="content" id="ticketholdersPageContent"></div>
         
         </div>
         <!--- End of Ticket Holders Page --->
+
+
+
+
+        <!-- Ticket Holders Page for Landscape Mode -->
+        <div id="ticketholdersLandscapePage" data-role="page" data-add-back-btn="true">
         
+        	<div data-role="header" data-position="fixed">
+                <h1 id="ticketholdersLandscapeHeader">Ticket Holders &amp; Guest List</h1>
+            </div>
+            
+            <div data-role="content" id="ticketholdersLandscapePageContent"></div>
+            
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li><a href="#sellTicketPage" data-icon="sell">Sell Ticket</a></li>
+                        <li><a href="#calendarPage" data-icon="calendar">Calendar</a></li>
+                        <li><a href="#searchPage" data-icon="navsearch">Search</a></li>
+                        <li><a href="#reportsPage" data-icon="report">Reports</a></li>
+                        <li><a href="#settingsPage" data-icon="settings">Settings</a></li>
+                    </ul>
+                </div>
+			</div>
+        
+        </div>
+        <!--- End of Ticket Holders Landscape Page --->
+        
+        
+        <div data-role="dialog" data-theme="c" id="ticketholderDetails">
+            <div data-role="header">
+                <h1>Ticket Details</h1>
+            </div>
+            
+            <div data-role="content" id="ticketholderDetailsContent"></div>
+        </div>
         
         
         
