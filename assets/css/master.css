@@ -124,8 +124,7 @@ span.calendarCount { font-size: 12px; border: 1px solid #111; border-radius: 10p
 /* Ticket Holders */
 #ticketholdersPage .ui-header .ui-title { margin: 0.6em 11% 0.8em 11%; }
 #ticketholdersPage .ui-li-heading { text-transform: capitalize; }
-
-
+#ticketholdersPageContent .ui-navbar { margin: 0 0 17px 0; }
 
 
 
@@ -151,7 +150,7 @@ span.calendarCount { font-size: 12px; border: 1px solid #111; border-radius: 10p
 
 #sellTicketPageContent .optionsColumnContent h2 { font-size: 26px; font-weight: lighter; margin: 0 0 5px 0; height: 30px; }
 
-#sellTicketPageContent #ticketContainer { border-bottom: 1px dashed #aaa; height: 194px; margin: 0 0 10px 0; padding: 0 0 10px 0; overflow: auto; }
+#sellTicketPageContent #ticketContainer { border-bottom: 1px dashed #aaa; height: 154px; margin: 10px 0 10px 0; padding: 0 0 10px 0; overflow: auto; }
 #sellTicketPageContent ul.ticketQtyList input.qtyField { background: #fff; width: 20px; margin: 0; text-align: center; display: inline-block; padding: 0 3px; height: 24px; margin: 0 1px 0 0; float: left; }
 #sellTicketPageContent div.qtyContainer { height: 26px; width: 90px; float: left; }
 #sellTicketPageContent div.qtyContainer .ui-btn-icon-notext { margin: 0 1px 0 0; float: left; }

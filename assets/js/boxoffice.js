@@ -1,21 +1,14 @@
 
-$(document).bind("mobileinit", function() {
+$(document).bind("mobileinit", function(){
     // Make your jQuery Mobile framework configuration changes here!
 	$.support.cors = true;
-    $.mobile.allowCrossDomainPages = true;
+	$.mobile.allowCrossDomainPages = true;
 	$.mobile.defaultPageTransition = 'none';
 });
 
 
 $(document).ready(function() {
-    
-	// For testing since there is no mobileinit on desktop
-	$.support.cors = true;
-	$.mobile.allowCrossDomainPages = true;
-	$.mobile.defaultPageTransition = 'none';
-	// End for testing
-	
-	
+
 	// Local jQuery data structs for app
 	$.boxofficeUser = {};
 	$.boxofficeUser.brandProperty = "";
@@ -46,7 +39,7 @@ $(document).ready(function() {
 		$.boxofficeUser.venueName = "Irvine Improv";
 		$.boxofficeUser.venuesOwned = "189,190,44,109,196,200,201,220,1350,1837,375,1677,658,61,9,156,193,202,43,198,2139,197,194,45,203,204,195,990,199,685,127,654,191";
 		defaultAllPages();
-		$.mobile.changePage($("#sellTicketPage"), { transition: "none"} );	
+		$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );	
 	}
 	
 	
@@ -105,35 +98,37 @@ $(document).ready(function() {
 	});
 
 
+	
 	$(window).bind('orientationchange', function(e) {
 		if($.boxofficeUser.userID > 0) {
 			if(e.orientation == "portrait") {
 				//$('#ticketholdersPageContent').trigger('create');
 				$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );
+				if($("#ticketholdersPageContent").html().length==0){
+					navigateTicketHolders(0);	
+				}
 			} else {
 				//landscape
 				$.mobile.changePage($("#"+$.boxofficeSettings.landscapePage), { transition: "none"} );
 			}
 		}
 	});
-	
-	$(document).bind("pagebeforechange",function(event, data) {
-		$.mobile.showPageLoadingMsg();
-	});
-	
-	$(document).bind("pagechange",function(event, data) {
-		$.mobile.hidePageLoadingMsg();
-		// set current view for orientation changing back and forth
-		if(data.toPage.attr("id")!="ticketholdersPage") {
-			$.boxofficeSettings.landscapePage = data.toPage.attr("id");
-		}
-		
-	});
-
 
 });
 
 
+$(document).bind("pagebeforechange",function(event, data) {
+	//$.mobile.showPageLoadingMsg();
+});
+
+$(document).bind("pagechange",function(event, data) {
+	//$.mobile.hidePageLoadingMsg();
+	// set current view for orientation changing back and forth
+	if(data.toPage.attr("id")!="ticketholdersPage") {
+		$.boxofficeSettings.landscapePage = data.toPage.attr("id");
+	}
+	
+});
 
 
 var userLogin = function(username,password,brandProperty) {
@@ -258,7 +253,6 @@ var defaultAllPages = function() {
 	defaultSearch();
 	defaultReports();
 	defaultSettings();
-	defaultTicketHolders();
 }
 
 
@@ -278,16 +272,24 @@ var defaultDashboard = function() {
 
 
 var defaultSellTicket = function() {
-	navigateSellTicket(0,0,0);
+	navigateSellTicket(0,0,0,false,false);
 }
 
-var navigateSellTicket = function(showTimingID,qty,showTierID) {
+var navigateSellTicket = function(showTimingID,qty,showTierID,changePage,showLoading) {
 
+	if(showLoading) {
+		$.mobile.showPageLoadingMsg();
+	}
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=sellticket&venueID='+$.boxofficeUser.venueID+'&showTimingID='+showTimingID+'&qty='+qty+'&showTierID='+showTierID+'&datasource='+$.boxofficeUser.datasource+'&brandProperty='+$.boxofficeUser.brandProperty+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
 			$("#sellTicketPageContent").html(data.HTML).trigger("create");
-			$.mobile.changePage($("#sellTicketPage"), { transition: "none"} );
+			if(showLoading) {
+				$.mobile.hidePageLoadingMsg();
+			}
+			if(changePage) {
+				$.mobile.changePage($("#sellTicketPage"), { transition: "none"} );
+			}
 		}
 	});
 	
@@ -318,7 +320,7 @@ var navigateCalendar = function(view,date) {
 		default:
 			var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=calendarcontent&venueID='+$.boxofficeUser.venueID+'&datasource='+$.boxofficeUser.datasource+'&startDate='+date+'&callback=?';
 			$.getJSON(surl, function(data) {
-				console.log(data);
+				//console.log(data);
 				if(data.SUCCESS) {
 					$('#calendarPageContent').html(data.HTML).trigger("create");
 				}
@@ -354,12 +356,10 @@ var defaultSettings = function() {
 }
 
 
-var defaultTicketHolders = function() {
-	navigateTicketHolders(0);
-}
 
 var navigateTicketHolders = function(showTimingID) {
 
+	$.mobile.showPageLoadingMsg();
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=ticketholders&venueID='+$.boxofficeUser.venueID+'&datasource='+$.boxofficeUser.datasource+'&showTimingID='+showTimingID+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
@@ -375,10 +375,30 @@ var navigateTicketHolders = function(showTimingID) {
 			}
 			$('#ticketholdersHeader').html(data.HEADER);
 			$('#ticketholdersPageContent').html(data.HTML).trigger('create');
-			
 		}
+		$.mobile.hidePageLoadingMsg();
 	});
 	
+}
+
+var filterTicketholderList = function(filterBy) {
+	$('li','#ticketholderList').hide();
+	$('li.ui-li-divider','#ticketholderList').show();
+	
+	switch(filterBy) {
+		case 'willcall':
+			$('li.willcall','#ticketholderList').show();
+			break
+		case 'vip':
+			$('li.vip','#ticketholderList').show();
+			break
+		case 'guestlist':
+			$('li.guestlist','#ticketholderList').show();
+			break
+		default:
+			$('li','#ticketholderList').show();
+			break;	
+	}
 }
 
 
@@ -387,12 +407,12 @@ var navigateTicketHolders = function(showTimingID) {
 
 var showInfo = function(showTimingID) {
 	
-	$.mobile.showPageLoadingMsg();
+	//$.mobile.showPageLoadingMsg();
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=showinfo&showTimingID='+showTimingID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
 			showAlert('Show/Event Information',data.HTML);
-			$.mobile.hidePageLoadingMsg();
+			//$.mobile.hidePageLoadingMsg();
 		}
 	});
 	
@@ -552,6 +572,7 @@ var updateShoppingCart = function() {
 	var showTierList = '';	
 	var couponID = 0;
 	var paymentTypeID = $('#paymentTypeID').val();
+	var ticketSaleTypeID = $('#ticketSaleTypeID').val();
 	var isVipGuestlistCoupon = false;
 	
 	$('input','#ticketContainer>ul.ticketQtyList').each(function(i){
@@ -585,7 +606,7 @@ var updateShoppingCart = function() {
 	}
 	
 	$.mobile.showPageLoadingMsg();
-	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=updateticketprice&venueID='+$.boxofficeUser.venueID+'&showTimingID='+showTimingID+'&qty='+qty+'&showTierList='+showTierList+'&couponID='+couponID+'&isVipGuestlistCoupon='+isVipGuestlistCoupon+'&paymentTypeID='+paymentTypeID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=updateticketprice&venueID='+$.boxofficeUser.venueID+'&showTimingID='+showTimingID+'&qty='+qty+'&showTierList='+showTierList+'&couponID='+couponID+'&isVipGuestlistCoupon='+isVipGuestlistCoupon+'&paymentTypeID='+paymentTypeID+'&ticketSaleTypeID='+ticketSaleTypeID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
 			$('#orderTotalContainer').html(data.CARTDISPLAY).trigger('create');
@@ -600,8 +621,184 @@ var updateShoppingCart = function() {
 
 
 var applyCouponCode = function () {
+	
 	// Look up the coupon code
 	
+	if($('#couponCode').val().length) {
+			
+		var showTimingID = $('#showTimingID').val();	
+		var showTierList = '';	
+		var ticketSaleTypeID = $('#ticketSaleTypeID').val();
+		
+		$('input','#ticketContainer>ul.ticketQtyList').each(function(i){
+			var showTierID = parseInt($(this).attr('id').replace('qty',''));
+			if(showTierID > 0) {
+				if(showTierList.length) {
+					showTierList = showTierList + ';';	
+				}
+				showTierList = showTierList + showTierID + ':' + parseInt($(this).val());
+			}
+		});
+		
+		if(showTierList.length) {
+			showTierList = showTimingID + '|' + showTierList;
+			$('#showTierList').val(showTierList);
+		} else {
+			showTierList = "0|0:0";
+		}
+			
+		$.mobile.showPageLoadingMsg();
+		var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=validateCoupon&showTimingID='+showTimingID+'&couponCode='+$('#couponCode').val()+'&showTierList='+showTierList+'&ticketSaleTypeID='+ticketSaleTypeID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+		$.getJSON(surl, function(data) {
+			if(data.SUCCESS) {
+				$('#couponCode').val('');
+				$.mobile.hidePageLoadingMsg();
+				if(data.VALID) {
+					$('#appliedCouponID').val(data.COUPONID);
+					$('#couponCodeContainer').append('<a href="" onclick="removeCoupon();return false;" data-role="button" data-mini="true" data-icon="delete" data-theme="b">Remove Coupon</a>').trigger('create');
+					$('label,input,div','#couponCodeContainer').hide();
+					updateShoppingCart();
+				} else {
+					showAlert('Invalid Coupon Code','Sorry the coupon code provided was not valid. Please try again.');
+				}
+			} else {
+				$.mobile.hidePageLoadingMsg();	
+			}
+		});
+	
+	}
 	
 }
+
+var removeCoupon = function() {
+	$('a','#couponCodeContainer').remove();
+	$('#appliedCouponID').val(0);
+	$('label,input,div','#couponCodeContainer').show();
+	updateShoppingCart();
+}
+
+
+
+
+
+var submitCheckout = function() {
+
+	
+	//validate 
+	var errorMsg = "";
+
+	// Check quantity
+	var totalQty = 0;
+	$('input','#ticketContainer>ul.ticketQtyList').each(function(i){
+		totalQty = eval(totalQty+parseInt($(this).val()));
+	});
+	if(totalQty==0) {
+		errorMsg = errorMsg + "Please select a valid quantity of tickets<br />"	
+	}
+	
+	switch(parseInt($('#paymentTypeID').val())) {
+		case 1:
+			// Credit Card
+			if($('#cardNumber').val().length==0) {
+				errorMsg = errorMsg + "Please enter a credit card number<br />"	
+			}
+			if($('#cardExpiration').val().length==0) {
+				errorMsg = errorMsg + "Please enter a credit card expiration<br />"	
+			}
+			if($('#cardCVV').val().length==0) {
+				errorMsg = errorMsg + "Please enter a credit card CVV code<br />"	
+			}
+			if($('#cardZipCode').val().length==0) {
+				errorMsg = errorMsg + "Please enter a billing zip code<br />"	
+			}
+			if($('#customerFirstName').val().length==0) {
+				errorMsg = errorMsg + "Please enter the customer first name<br />"	
+			}
+			if($('#customerLastName').val().length==0) {
+				errorMsg = errorMsg + "Please enter the customer last name<br />"	
+			}
+			break;
+		case 2:
+			// Cash
+			if(parseFloat($('#cashReceived').val())<parseFloat($('#checkoutTotal').val())) {
+				errorMsg = errorMsg + "Please enter an amount of cash recieved equal to or greater than the total<br />"	
+			}
+			break;
+		case 3:
+			// Gift Card
+			if($('#giftcardNumber').val().length==0) {
+				errorMsg = errorMsg + "Please enter the gift card number<br />"	
+			}
+			break;
+	}
+	
+	if($('#ticketSaleTypeID').val()==3) {
+		// Phone Order
+		
+		if(parseInt($('#paymentTypeID').val()) != 1) {
+			//Already checked these fields above
+			if($('#customerFirstName').val().length==0) {
+				errorMsg = errorMsg + "Please enter the customer first name<br />"	
+			}
+			if($('#customerLastName').val().length==0) {
+				errorMsg = errorMsg + "Please enter the customer last name<br />"	
+			}
+		}
+		if($('#customerEmailAddress').val().length==0) {
+			errorMsg = errorMsg + "Please enter the customer email address<br />"	
+		}
+	}
+	
+	if(errorMsg.length) {
+		
+		showAlert('Error Completing Purchase',errorMsg);
+		
+	} else {
+		
+		//Submit the form
+		$.mobile.showPageLoadingMsg();
+		var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=buyticket&datasource='+$.boxofficeUser.datasource+'&callback=?';
+		alert(surl);
+		//temp
+		$.mobile.hidePageLoadingMsg();
+		
+		/*
+		$.getJSON(surl, function(data) {
+			if(data.SUCCESS) {
+				
+			}
+			$.mobile.hidePageLoadingMsg();
+		});
+		*/
+			
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
