@@ -133,6 +133,7 @@ span.calendarCount { font-size: 12px; border: 1px solid #111; border-radius: 10p
 #ticketholdersPageContent .ui-navbar,
 #ticketholdersLandscapePageContent .ui-navbar { margin: 0 0 17px 0; }
 
+.ticketHolderName { text-transform: capitalize; }
 
 
 
