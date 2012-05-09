@@ -12,6 +12,7 @@ $(document).ready(function() {
 	// Local jQuery data structs for app
 	$.boxofficeUser = {};
 	$.boxofficeUser.brandProperty = "";
+	$.boxofficeUser.brandPropertySite = "";
 	$.boxofficeUser.datasource = "";
 	$.boxofficeUser.userID = 0;
 	$.boxofficeUser.firstName = "";
@@ -30,6 +31,7 @@ $(document).ready(function() {
 	// For testing on firefox				
 	if (navigator.userAgent.indexOf("Firefox")!=-1) {
 		$.boxofficeUser.brandProperty = "LS";
+		$.boxofficeUser.brandPropertySite = "laughstub.com";
 		$.boxofficeUser.datasource = "LaughStub";
 		$.boxofficeUser.userID = 14680769;
 		$.boxofficeUser.firstName = "Erin";
@@ -66,6 +68,7 @@ $(document).ready(function() {
 		} else {
 		
 			$.boxofficeUser.brandProperty = result.brandProperty;
+			$.boxofficeUser.brandPropertySite = result.brandPropertySite;
 			$.boxofficeUser.datasource = result.datasource;
 			$.boxofficeUser.userID = result.userID;
 			$.boxofficeUser.firstName = result.firstName;
@@ -145,6 +148,7 @@ var userLogin = function(username,password,brandProperty) {
 		if(data.SUCCESS) {
 		
 			$.boxofficeUser.brandProperty = data.BRANDPROPERTY;
+			$.boxofficeUser.brandPropertySite = data.BRANDPROPERTYSITE;
 			$.boxofficeUser.datasource = data.DATASOURCE;
 			$.boxofficeUser.userID = data.USERID;
 			$.boxofficeUser.firstName = data.FIRSTNAME;
@@ -162,6 +166,7 @@ var userLogin = function(username,password,brandProperty) {
 			var user = { 
 				key: 'user', 
 				brandProperty: data.BRANDPROPERTY, 
+				brandPropertySite: data.BRANDPROPERTYSITE, 
 				datasource: data.DATASOURCE, 
 				userID: data.USERID, 
 				firstName: data.FIRSTNAME, 
@@ -225,23 +230,6 @@ var initShowSwipe = function(pageContentID) {
 				
 	var showWidth = eval( parseInt( $('ul.showOverview > li','#'+pageContentID).size() ) * 249);
 	$('#'+pageContentID).css('width',showWidth);
-	
-	/*
-	$('#'+pageContentID).bind("swipeleft",function(event) {
-		var currPos = parseInt($('ul.showOverview','#'+pageContentID).css('left').replace('px',''));
-		var remaining = $('ul.showOverview','#'+pageContentID).width()+currPos;
-		if(remaining>996) {
-			$('ul.showOverview','#'+pageContentID).animate({left: eval(currPos-996)},500);
-		}
-	});
-	
-	$('#'+pageContentID).bind("swiperight",function(event) {
-		var currPos = parseInt($('ul.showOverview','#'+pageContentID).css('left').replace('px',''));
-		if(currPos<0) {
-			$('ul.showOverview','#'+pageContentID).animate({left: eval(currPos+996)},500);
-		}
-	});
-	*/
 			
 }
 
@@ -425,7 +413,7 @@ var navigateLandscapeTicketHolders = function(showTimingID,filter) {
 var openTicketHolderInfo = function(ticketID,msg) {
 	
 	$.mobile.showPageLoadingMsg();
-	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=ticketholderDetails&ticketID='+ticketID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=ticketholderDetails&emailFields=false&ticketID='+ticketID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
 			$('#ticketholderDetailsContent').html(data.HTML).trigger('create');
@@ -437,12 +425,12 @@ var openTicketHolderInfo = function(ticketID,msg) {
 					var theMsg = 'Ticket has been emailed to customer!';
 					break;
 				default:
-					var theMsg = msg + ' ticket';
 					if(parseInt(msg)!=1){
-						theMsg = theMsg + 's';	
+						var theMsg = msg + ' tickets have been checked in.';	
+					} else {
+						var theMsg = '1 ticket has been checked in.';	
 					}
-					theMsg = theMsg + ' have been checked in.';
-					break;	
+					break;
 			}
 		
 			$('#ticketholderDetailsContent').prepend('<div class="ui-body ui-body-e ticketholderDetailsMessage" id="ticketholderDetailsMessage"><p>'+theMsg+'</p></div>');
@@ -457,9 +445,27 @@ var openTicketHolderInfo = function(ticketID,msg) {
 
 }
 
+var openEmailTicketForm = function(ticketID) {
+	$.mobile.showPageLoadingMsg();
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=ticketholderDetails&emailFields=true&ticketID='+ticketID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			$('#ticketholderDetailsContent').html(data.HTML).trigger('create');
+		}
+		$.mobile.hidePageLoadingMsg();
+	});
+}
+
 var emailTickets = function(ticketID) {
 	$.mobile.showPageLoadingMsg();
-	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=emailTicketHolder&ticketID='+ticketID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+	var specificEmail = $('#specificEmail').val();
+	var attachTickets = $('#attachTickets').val();
+	
+	if($('#sendSpecificEmailNo').is(':checked')) {
+		specificEmail = '';
+	}
+	
+	var surl = 'http://www.'+$.boxofficeUser.brandPropertySite+'/ipadbo/servicesBrandSpecific.cfc?method=emailTicketHolder&ticketID='+ticketID+'&specificEmail='+specificEmail+'&attachTickets='+attachTickets+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
 			openTicketHolderInfo(ticketID,'email');
@@ -471,7 +477,6 @@ var emailTickets = function(ticketID) {
 var checkinTicketHolder = function() {
 	var ticketID = $('#ticketID').val();
 	var qty = $('#ticketCheckinQty').val();
-	
 	$.mobile.showPageLoadingMsg();
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=checkinTickets&ticketID='+ticketID+'&qty='+qty+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
 	$.getJSON(surl, function(data) {
@@ -515,7 +520,8 @@ var updateSelectedVenue = function() {
 	
 	var user = { 
 		key: 'user', 
-		brandProperty: $.boxofficeUser.brandProperty, 
+		brandProperty: $.boxofficeUser.brandProperty,
+		brandPropertySite: $.boxofficeUser.brandPropertySite, 
 		datasource: $.boxofficeUser.datasource, 
 		userID: $.boxofficeUser.userID, 
 		firstName: $.boxofficeUser.firstName, 
@@ -804,12 +810,14 @@ var submitCheckout = function() {
 				errorMsg = errorMsg + "Please enter the customer last name<br />"	
 			}
 			break;
+		/*
 		case 2:
 			// Cash
 			if(parseFloat($('#cashReceived').val())<parseFloat($('#checkoutTotal').val())) {
 				errorMsg = errorMsg + "Please enter an amount of cash recieved equal to or greater than the total<br />"	
 			}
 			break;
+		*/
 		case 3:
 			// Gift Card
 			if($('#giftcardNumber').val().length==0) {
@@ -843,19 +851,44 @@ var submitCheckout = function() {
 		
 		//Submit the form
 		$.mobile.showPageLoadingMsg();
-		var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=buyticket&datasource='+$.boxofficeUser.datasource+'&callback=?';
-		alert(surl);
-		//temp
-		$.mobile.hidePageLoadingMsg();
-		
-		/*
+
+		var queryString = 'method=buyticket';
+			queryString = queryString + '&datasource='+$.boxofficeUser.datasource;
+			queryString = queryString + '&showTimingID='+$('#showTimingID').val();
+			queryString = queryString + '&qty='+totalQty;
+			queryString = queryString + '&showTierList='+$('#showTierList').val();
+			queryString = queryString + '&paymentTypeID='+$('#paymentTypeID').val();
+			queryString = queryString + '&ticketSaleTypeID='+$('#ticketSaleTypeID').val();
+			queryString = queryString + '&cardNumber='+$('#cardNumber').val();
+			queryString = queryString + '&cardExpiration='+$('#cardExpiration').val();
+			queryString = queryString + '&cardCVV='+$('#cardCVV').val();
+			queryString = queryString + '&cardZipCode='+$('#cardZipCode').val();
+			queryString = queryString + '&giftcardNumber='+$('#giftcardNumber').val();
+			queryString = queryString + '&cashReceived='+$('#cashReceived').val();
+			queryString = queryString + '&checkoutTotal='+$('#checkoutTotal').val();
+			queryString = queryString + '&customerFirstName='+$('#customerFirstName').val();
+			queryString = queryString + '&customerLastName='+$('#customerLastName').val();
+			queryString = queryString + '&customerEmailAddress='+$('#customerEmailAddress').val();
+			queryString = queryString + '&customerPhoneNumber='+$('#customerPhoneNumber').val();
+			queryString = queryString + '&couponID='+$('#discountID').val();
+			queryString = queryString + '&appliedCouponID='+$('#appliedCouponID').val();
+			queryString = queryString + '&couponCode='+$('#couponCode').val();
+			queryString = queryString + '&userID='+$.boxofficeUser.userID;
+			queryString = queryString + '&callback=?';
+
+		var surl = 'https://www.'+$.boxofficeUser.brandPropertySite+'/ipadbo/servicesBrandSpecific.cfc?'+queryString;
 		$.getJSON(surl, function(data) {
 			if(data.SUCCESS) {
-				
+				if(data.ERROR==0) {
+					//console.log(data);
+					navigateSellTicket(data.SHOWTIMINGID,0,0,false,false);
+					openTicketHolderInfo(data.TICKETID,'');
+				} else {
+					showAlert('Error','An error occured completing the order.<br /><br />'+data.ERRORMSG);	
+				}
 			}
 			$.mobile.hidePageLoadingMsg();
 		});
-		*/
 			
 	}
 	

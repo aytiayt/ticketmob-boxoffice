@@ -144,7 +144,10 @@ span.calendarCount { font-size: 12px; border: 1px solid #111; border-radius: 10p
 #ticketholderDetails .ticketholderDetailsMessage p { font-size: 16px; font-weight: bold; text-align: center; height: 30px; line-height: 30px; }
 #ticketholderDetails #allCheckedIn { margin: 10px 0; }
 
-
+#emailTicketholderForm .ui-field-contain .ui-controlgroup-controls { width: 70%; margin-left: 4px; }
+#emailTicketholderForm label.ui-input-text,
+#emailTicketholderForm label.ui-slider,
+#emailTicketholderForm div.ui-controlgroup-label { width: 25%; }
 
 
 /* Settings */
