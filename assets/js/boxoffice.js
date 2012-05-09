@@ -26,6 +26,7 @@ $(document).ready(function() {
 	$.boxofficeSettings = {};
 	$.boxofficeSettings.landscapePage = 'dashboardPage';
 	$.boxofficeSettings.currOrientation = 'landscape';
+	$.boxofficeSettings.defaultCheckIn = false;
  
 
 	// For testing on firefox				
@@ -44,7 +45,6 @@ $(document).ready(function() {
 		defaultAllPages();
 		$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );	
 	}
-	
 	
 	// create a store
 	var data = new Lawnchair('data');
@@ -82,10 +82,10 @@ $(document).ready(function() {
 			// set up the default views
 			defaultAllPages();
 			
-			$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
+			//$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
 			
 			//Testing:
-			//$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );	
+			$.mobile.changePage($("#searchPage"), { transition: "none"} );	
 		
 		}
 		
@@ -144,7 +144,6 @@ var userLogin = function(username,password,brandProperty) {
 	$.getJSON(surl, function(data) {
 		
 		//console.log(data);
-		
 		if(data.SUCCESS) {
 		
 			$.boxofficeUser.brandProperty = data.BRANDPROPERTY;
@@ -204,7 +203,7 @@ var userLogout = function() {
 	data.nuke(function(){
 		clearAllPages();
 		$.mobile.changePage($("#loginPage"), { transition: "none"} );
-	});	
+	});
 }
 
 
@@ -327,9 +326,58 @@ var defaultSearch = function() {
 	
 }
 
+var searchCustomers = function() {
+	
+	$.mobile.showPageLoadingMsg();
+
+	var queryString = 'method=searchcustomers';
+		queryString = queryString + '&datasource='+$.boxofficeUser.datasource;
+		queryString = queryString + '&firstName='+$('#searchFirstName').val();
+		queryString = queryString + '&lastName='+$('#searchLastName').val();
+		queryString = queryString + '&emailAddress='+$('#searchEmail').val();
+		queryString = queryString + '&paymentID='+$('#searchPaymentID').val();
+		queryString = queryString + '&ticketID='+$('#searchTicketID').val();
+		queryString = queryString + '&creditCard='+$('#searchCreditCard').val();
+		queryString = queryString + '&dateFrom='+$('#searchDateFrom').val();
+		queryString = queryString + '&dateTo='+$('#searchDateTo').val();
+		queryString = queryString + '&venueID='+$.boxofficeUser.venueID;
+		queryString = queryString + '&callback=?';
+
+	var surl = 'https://www.ticketmob.com/ipadbo/services.cfc?'+queryString;
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			$('#customerSearchResults').html(data.HTML).trigger("create");
+		}
+		$.mobile.hidePageLoadingMsg();
+	});
+	
+}
+
+
+
+
 
 
 var defaultReports = function() {
+	updateReport(false);
+}
+
+
+
+var updateReport = function(showLoading) {
+	
+	if(showLoading) {
+		$.mobile.showPageLoadingMsg();
+	}
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=getReport&venueID='+$.boxofficeUser.venueID+'&showTimingID='+$('#reportShowTimingID').val()+'&brandProperty='+$.boxofficeUser.brandProperty+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			$('#reportsPageContent').html(data.HTML).trigger('create');
+			if(showLoading) {
+				$.mobile.hidePageLoadingMsg();
+			}
+		}
+	});
 	
 }
 
@@ -337,13 +385,99 @@ var defaultReports = function() {
 
 var defaultSettings = function() {
 
-	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=settingscontent&venueID='+$.boxofficeUser.venueID+'&venuesOwned='+$.boxofficeUser.venuesOwned+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
-	$.getJSON(surl, function(data) {
-		if(data.SUCCESS) {
-			$('#settingsPageContent').html(data.HTML).trigger("create");
+	// create a store
+	var settings = new Lawnchair('settings');
+
+	// look to see if brand property and userid are stored in local store already, if so, we can log the person in and skip login.
+	settings.get('preferences',function(result) {
+		//console.log(result);
+		if(result) {
+			$.boxofficeSettings.defaultCheckIn = result.defaultCheckIn;
 		}
+		var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=settingscontent&venueID='+$.boxofficeUser.venueID+'&defaultCheckIn='+$.boxofficeSettings.defaultCheckIn+'&venuesOwned='+$.boxofficeUser.venuesOwned+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+		$.getJSON(surl, function(data) {
+			if(data.SUCCESS) {
+				$('#settingsPageContent').html(data.HTML).trigger("create");
+			}
+		});
+		
 	});
 	
+}
+
+var saveSettings = function() {
+	
+	$.mobile.showPageLoadingMsg();
+	
+	if(parseInt($('#defaultCheckIn').val())==1){
+		$.boxofficeSettings.defaultCheckIn = true;
+	} else {
+		$.boxofficeSettings.defaultCheckIn = false;
+	}
+	
+	var userSettings = { 
+		key: 'preferences', 
+		defaultCheckIn: $.boxofficeSettings.defaultCheckIn };
+		
+	var settings = new Lawnchair('settings');
+	
+	settings.save(userSettings,function(){
+		$.mobile.hidePageLoadingMsg();
+		
+		$('#settingsForm').prepend('<div class="ui-body ui-body-e messageBox" id="settingsMessage"><p>Settings have been saved.</p></div>');
+		window.setTimeout(function(){
+			$('#settingsMessage').fadeOut(500,function(){
+				$(this).remove();
+			});
+		},5000);
+		
+	});
+	
+}
+
+var updateSelectedVenue = function() {
+	
+	$.mobile.showPageLoadingMsg();
+	
+	$.boxofficeUser.venueID = $('#venueID').val();
+	$.boxofficeUser.venueName = $('#venueID option:selected').text();
+	
+	var user = { 
+		key: 'user', 
+		brandProperty: $.boxofficeUser.brandProperty,
+		brandPropertySite: $.boxofficeUser.brandPropertySite, 
+		datasource: $.boxofficeUser.datasource, 
+		userID: $.boxofficeUser.userID, 
+		firstName: $.boxofficeUser.firstName, 
+		lastName: $.boxofficeUser.lastName, 
+		emailAddress: $.boxofficeUser.emailAddress, 
+		userType: $.boxofficeUser.userType, 
+		venueID: $.boxofficeUser.venueID, 
+		venueName: $.boxofficeUser.venueName,
+		venuesOwned: $.boxofficeUser.venuesOwned };
+		
+	var data = new Lawnchair('data');
+	
+	data.save(user,function(){
+		
+		populateUserFields();
+		defaultDashboard();
+		defaultSellTicket();
+		defaultCalendar();
+		defaultSearch();
+		defaultReports();
+		
+		$.mobile.hidePageLoadingMsg();
+		
+		$('#settingsForm').prepend('<div class="ui-body ui-body-e messageBox" id="settingsMessage"><p>Venue has been changed.</p></div>');
+		window.setTimeout(function(){
+			$('#settingsMessage').fadeOut(500,function(){
+				$(this).remove();
+			});
+		},5000);
+		
+	});
+
 }
 
 
@@ -410,7 +544,7 @@ var navigateLandscapeTicketHolders = function(showTimingID,filter) {
 }
 
 
-var openTicketHolderInfo = function(ticketID,msg) {
+var openTicketHolderInfo = function(ticketID,msg,autoCheckIn) {
 	
 	$.mobile.showPageLoadingMsg();
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=ticketholderDetails&emailFields=false&ticketID='+ticketID+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
@@ -419,6 +553,9 @@ var openTicketHolderInfo = function(ticketID,msg) {
 			$('#ticketholderDetailsContent').html(data.HTML).trigger('create');
 		}
 		$.mobile.changePage("#ticketholderDetails");
+		if(autoCheckIn) {
+			checkinTicketHolder();
+		}
 		if(msg.length) {
 			switch(msg) {
 				case 'email':
@@ -468,7 +605,7 @@ var emailTickets = function(ticketID) {
 	var surl = 'http://www.'+$.boxofficeUser.brandPropertySite+'/ipadbo/servicesBrandSpecific.cfc?method=emailTicketHolder&ticketID='+ticketID+'&specificEmail='+specificEmail+'&attachTickets='+attachTickets+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
-			openTicketHolderInfo(ticketID,'email');
+			openTicketHolderInfo(ticketID,'email',false);
 		}
 		$.mobile.hidePageLoadingMsg();
 	});
@@ -481,7 +618,7 @@ var checkinTicketHolder = function() {
 	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=checkinTickets&ticketID='+ticketID+'&qty='+qty+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
 	$.getJSON(surl, function(data) {
 		if(data.SUCCESS) {
-			openTicketHolderInfo(ticketID,data.TOTALQTY);
+			openTicketHolderInfo(ticketID,data.TOTALQTY,false);
 		}
 		$.mobile.hidePageLoadingMsg();
 	});
@@ -510,36 +647,6 @@ var showInfo = function(showTimingID) {
 }
 
 
-
-var updateSelectedVenue = function() {
-	
-	$.mobile.showPageLoadingMsg();
-	
-	$.boxofficeUser.venueID = $('#venueID').val();
-	$.boxofficeUser.venueName = $('#venueID option:selected').text();
-	
-	var user = { 
-		key: 'user', 
-		brandProperty: $.boxofficeUser.brandProperty,
-		brandPropertySite: $.boxofficeUser.brandPropertySite, 
-		datasource: $.boxofficeUser.datasource, 
-		userID: $.boxofficeUser.userID, 
-		firstName: $.boxofficeUser.firstName, 
-		lastName: $.boxofficeUser.lastName, 
-		emailAddress: $.boxofficeUser.emailAddress, 
-		userType: $.boxofficeUser.userType, 
-		venueID: $.boxofficeUser.venueID, 
-		venueName: $.boxofficeUser.venueName,
-		venuesOwned: $.boxofficeUser.venuesOwned };
-		
-	var data = new Lawnchair('data');
-	
-	data.save(user,function(){
-		defaultAllPages();
-		$.mobile.hidePageLoadingMsg();
-	});
-
-}
 
 
 
@@ -778,7 +885,8 @@ var submitCheckout = function() {
 	
 	//validate 
 	var errorMsg = "";
-
+	var checkNameFields = false;
+	
 	// Check quantity
 	var totalQty = 0;
 	$('input','#ticketContainer>ul.ticketQtyList').each(function(i){
@@ -791,24 +899,24 @@ var submitCheckout = function() {
 	switch(parseInt($('#paymentTypeID').val())) {
 		case 1:
 			// Credit Card
-			if($('#cardNumber').val().length==0) {
-				errorMsg = errorMsg + "Please enter a credit card number<br />"	
+			if (!_CF_checkcreditcard($('#cardNumber').val(), true)) {
+				errorMsg = errorMsg + "Please enter a valid credit card number<br />";
 			}
+			// Card Expiration
 			if($('#cardExpiration').val().length==0) {
-				errorMsg = errorMsg + "Please enter a credit card expiration<br />"	
+				errorMsg = errorMsg + "Please enter a credit card expiration<br />";
 			}
-			if($('#cardCVV').val().length==0) {
-				errorMsg = errorMsg + "Please enter a credit card CVV code<br />"	
+			// Card CVV
+			if (!_CF_checkinteger($('#cardCVV').val(), true)) {
+				errorMsg = errorMsg + "Please enter a valid credit card CVV code<br />";
 			}
-			if($('#cardZipCode').val().length==0) {
-				errorMsg = errorMsg + "Please enter a billing zip code<br />"	
+			// Billing Zip
+			if (!_CF_checkzip($('#cardZipCode').val(), true)) {
+				errorMsg = errorMsg + "Please enter a valid billing zip code<br />";
 			}
-			if($('#customerFirstName').val().length==0) {
-				errorMsg = errorMsg + "Please enter the customer first name<br />"	
-			}
-			if($('#customerLastName').val().length==0) {
-				errorMsg = errorMsg + "Please enter the customer last name<br />"	
-			}
+			// First and Last
+			checkNameFields = true;
+			
 			break;
 		/*
 		case 2:
@@ -820,27 +928,37 @@ var submitCheckout = function() {
 		*/
 		case 3:
 			// Gift Card
-			if($('#giftcardNumber').val().length==0) {
-				errorMsg = errorMsg + "Please enter the gift card number<br />"	
+			if (!_CF_checkinteger($('#giftcardNumber').val(), true)) {
+				errorMsg = errorMsg + "Please enter a valid gift card number<br />"	
 			}
+
 			break;
 	}
-	
+
 	if($('#ticketSaleTypeID').val()==3) {
 		// Phone Order
+		checkNameFields = true;
 		
-		if(parseInt($('#paymentTypeID').val()) != 1) {
-			//Already checked these fields above
-			if($('#customerFirstName').val().length==0) {
-				errorMsg = errorMsg + "Please enter the customer first name<br />"	
-			}
-			if($('#customerLastName').val().length==0) {
-				errorMsg = errorMsg + "Please enter the customer last name<br />"	
-			}
-		}
-		if($('#customerEmailAddress').val().length==0) {
-			errorMsg = errorMsg + "Please enter the customer email address<br />"	
-		}
+		if (!_CF_checkEmail($('#customerEmailAddress').val(), true)) {
+			errorMsg = errorMsg + "Please enter a valid customer email address<br />"	
+        }
+		
+	}
+
+	if(checkNameFields) {
+		
+		if($('#customerFirstName').val().length==0) {
+			errorMsg = errorMsg + "Please enter the customer first name<br />"	
+        }
+		if($('#customerLastName').val().length==0) {
+			errorMsg = errorMsg + "Please enter the customer last name<br />"	
+        }
+		
+	}
+	
+	// Make sure phone is valid if entered
+	if (!_CF_checkphone($('#customerPhoneNumber').val(), false)) {
+		errorMsg = errorMsg + "Please enter a valid customer phone number<br />"	
 	}
 	
 	if(errorMsg.length) {
@@ -882,7 +1000,7 @@ var submitCheckout = function() {
 				if(data.ERROR==0) {
 					//console.log(data);
 					navigateSellTicket(data.SHOWTIMINGID,0,0,false,false);
-					openTicketHolderInfo(data.TICKETID,'');
+					openTicketHolderInfo(data.TICKETID,'',$.boxofficeSettings.defaultCheckIn);
 				} else {
 					showAlert('Error','An error occured completing the order.<br /><br />'+data.ERRORMSG);	
 				}

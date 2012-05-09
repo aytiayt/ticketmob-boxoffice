@@ -11,6 +11,8 @@
 
 		<script src="phonegap.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/date.format.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/cfform.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/masks.js" type="text/javascript" charset="utf-8"></script>
 		<script src="assets/js/lawnchair/Lawnchair.js" type="text/javascript" charset="utf-8"></script>
         <script src="assets/js/lawnchair/adaptors/WebkitSQLiteAdaptor.js" type="text/javascript" charset="utf-8"></script>
         <script src="assets/js/lawnchair/adaptors/LawnchairAdaptorHelpers.js" type="text/javascript" charset="utf-8"></script>
@@ -212,7 +214,7 @@
         <!-- Search -->
         <div id="searchPage" data-role="page">
 
-            <div data-role="header">
+            <div data-role="header" data-position="fixed">
                 <a href="#dashboardPage" data-icon="home">Dashboard</a>
                 <h1>Search Ticket Holders</h1>
                 <a href="" class="logoutBtn" data-icon="delete">Logout</a>
@@ -220,7 +222,67 @@
         
             <div data-role="content" id="searchPageContent">	
                 
-                Search Page
+                <form id="customerSearchForm">
+                
+                	<div class="ui-grid-b">
+                    	<div class="ui-block-a">
+                        	<div data-role="fieldcontain">
+                            	<label for="searchFirstName">First Name</label>
+                                <input type="text" name="searchFirstName" id="searchFirstName" value="" />
+                            </div>
+                        </div>
+                        <div class="ui-block-b">
+                        	<div data-role="fieldcontain">
+                            	<label for="searchLastName">Last Name</label>
+                                <input type="text" name="searchLastName" id="searchLastName" value="" />
+                            </div>
+                        </div>
+                        <div class="ui-block-c">
+                        	<div data-role="fieldcontain">
+                            	<label for="searchEmail">Email Address</label>
+                                <input type="text" name="searchEmail" id="searchEmail" value="" />
+                            </div>
+                        </div>
+                        <div class="ui-block-a">
+                        	<div data-role="fieldcontain">
+                            	<label for="searchPaymentID">Order Number</label>
+                                <input type="number" name="searchPaymentID" id="searchPaymentID" value="" />
+                            </div>
+                        </div>
+                        <div class="ui-block-b">
+                        	<div data-role="fieldcontain">
+                            	<label for="searchTicketID">Ticket Number</label>
+                                <input type="number" name="searchTicketID" id="searchTicketID" value="" placeholder="9 Digit Number" />
+                            </div>
+                        </div>
+                        <div class="ui-block-b">
+                        	<div data-role="fieldcontain">
+                            	<label for="searchCreditCard">Credit Card</label>
+                                <input type="number" name="searchCreditCard" id="searchCreditCard" value="" />
+                            </div>
+                        </div>
+                        <div class="ui-block-a">
+                        	<div data-role="fieldcontain">
+                            	<label for="searchDateFrom">Date From</label>
+                                <input type="text" name="searchDateFrom" id="searchDateFrom" value="" placeholder="mm/dd/yyyy" maxlength="10" onkeyup="mask_onValueChanged();" onfocus="mask_onSetFocus(this, '99/99/9999');" onblur="mask_onKillFocus();" />
+                            </div>
+                        </div>
+                        <div class="ui-block-b">
+                        	<div data-role="fieldcontain">
+                            	<label for="searchDateTo">Date To</label>
+                                <input type="text" name="searchDateTo" id="searchDateTo" value="" placeholder="mm/dd/yyyy" maxlength="10" onkeyup="mask_onValueChanged();" onfocus="mask_onSetFocus(this, '99/99/9999');" onblur="mask_onKillFocus();" />
+                            </div>
+                        </div>
+                        <div class="ui-block-b">
+                        	<div data-role="fieldcontain">
+                            	<input type="button" data-theme="b" name="submitCustomerSearch" id="submitCustomerSearch" value="Search Customers" onClick="searchCustomers();" />
+                            </div>
+                        </div>
+                    </div>
+                
+                </form>
+                
+                <div id="customerSearchResults"></div>
                 	
             </div><!-- /content -->
             
@@ -249,18 +311,15 @@
         <!-- Reports -->
         <div id="reportsPage" data-role="page">
 
-            <div data-role="header">
+            <div data-role="header" data-position="fixed">
                 <a href="#dashboardPage" data-icon="home">Dashboard</a>
                 <h1>Show/Event Reports</h1>
                 <a href="" class="logoutBtn" data-icon="delete">Logout</a>
             </div><!-- /header -->
         
             <div data-role="content" id="reportsPageContent">	
-                
-                Reports Page
-                	
-            </div><!-- /content -->
-            
+                <input type="hidden" name="reportShowTimingID" id="reportShowTimingID" value="0" />
+            </div>
             
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="left">

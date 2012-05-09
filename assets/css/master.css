@@ -140,8 +140,10 @@ span.calendarCount { font-size: 12px; border: 1px solid #111; border-radius: 10p
 #ticketholderDetails h2 { font-weight: bold; font-size: 16px; margin: 0 0 10px 0; }
 #ticketholderDetails p { font-size: 14px; margin: 0 0 5px 0; }
 #ticketholderDetails #ticketholderForm { margin: 10px 0; padding: 0; border-top: 1px dashed #aaa; }
-#ticketholderDetails .ticketholderDetailsMessage { margin: 0 0 10px 0; }
-#ticketholderDetails .ticketholderDetailsMessage p { font-size: 16px; font-weight: bold; text-align: center; height: 30px; line-height: 30px; }
+#ticketholderDetails .ticketholderDetailsMessage,
+.messageBox { margin: 0 0 10px 0; }
+#ticketholderDetails .ticketholderDetailsMessage p,
+.messageBox p { font-size: 16px; font-weight: bold; text-align: center; height: 30px; line-height: 30px; }
 #ticketholderDetails #allCheckedIn { margin: 10px 0; }
 
 #emailTicketholderForm .ui-field-contain .ui-controlgroup-controls { width: 70%; margin-left: 4px; }
@@ -151,9 +153,21 @@ span.calendarCount { font-size: 12px; border: 1px solid #111; border-radius: 10p
 
 
 /* Settings */
-#settingsForm .ui-field-contain .ui-controlgroup-label,
+#settingsForm .ui-field-contain label.ui-slider,
 #settingsForm .ui-field-contain label.ui-select { width: 30%; }
+#settingsForm #settingsBtnContainer { margin-left: 32%; margin-top: 40px; }
 
+
+/* Reports */
+#reportsPageContent h1 { font-size: 22px; font-weight: bold; text-align: center; margin: 20px 0; }
+#reportsPageContent strong { font-weight: bold; }
+#reportsPageContent .ui-grid-c { border-bottom: 1px dashed #aaa; padding: 0 0 5px 0; margin: 0 0 10px 0; }
+#reportsPageContent .total { font-size: 16px; }
+
+
+
+/* Search */
+#customerSearchResults { margin: 20px 0 0 0; }
 
 
 
