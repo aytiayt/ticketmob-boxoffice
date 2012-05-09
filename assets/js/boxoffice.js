@@ -30,6 +30,7 @@ $(document).ready(function() {
  
 
 	// For testing on firefox				
+	/*
 	if (navigator.userAgent.indexOf("Firefox")!=-1) {
 		$.boxofficeUser.brandProperty = "LS";
 		$.boxofficeUser.brandPropertySite = "laughstub.com";
@@ -45,6 +46,7 @@ $(document).ready(function() {
 		defaultAllPages();
 		$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );	
 	}
+	*/
 	
 	// create a store
 	var data = new Lawnchair('data');
@@ -82,10 +84,10 @@ $(document).ready(function() {
 			// set up the default views
 			defaultAllPages();
 			
-			//$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
+			$.mobile.changePage($("#dashboardPage"), { transition: "none"} );
 			
 			//Testing:
-			$.mobile.changePage($("#searchPage"), { transition: "none"} );	
+			//$.mobile.changePage($("#searchPage"), { transition: "none"} );	
 		
 		}
 		
@@ -324,6 +326,67 @@ var navigateCalendar = function(view,date) {
 
 var defaultSearch = function() {
 	
+	var searchPageContent = ' \
+		<form id="customerSearchForm"> \
+			<div class="ui-grid-b"> \
+				<div class="ui-block-a"> \
+					<div data-role="fieldcontain"> \
+						<label for="searchFirstName">First Name</label> \
+						<input type="text" name="searchFirstName" id="searchFirstName" value="" /> \
+					</div> \
+				</div> \
+				<div class="ui-block-b"> \
+					<div data-role="fieldcontain"> \
+						<label for="searchLastName">Last Name</label> \
+						<input type="text" name="searchLastName" id="searchLastName" value="" /> \
+					</div> \
+				</div> \
+				<div class="ui-block-c"> \
+					<div data-role="fieldcontain"> \
+						<label for="searchEmail">Email Address</label> \
+						<input type="text" name="searchEmail" id="searchEmail" value="" /> \
+					</div> \
+				</div> \
+				<div class="ui-block-a"> \
+					<div data-role="fieldcontain"> \
+						<label for="searchPaymentID">Order Number</label> \
+						<input type="number" name="searchPaymentID" id="searchPaymentID" value="" /> \
+					</div> \
+				</div> \
+				<div class="ui-block-b"> \
+					<div data-role="fieldcontain"> \
+						<label for="searchTicketID">Ticket Number</label> \
+						<input type="number" name="searchTicketID" id="searchTicketID" value="" placeholder="9 Digit Number" /> \
+					</div> \
+				</div> \
+				<div class="ui-block-b"> \
+					<div data-role="fieldcontain"> \
+						<label for="searchCreditCard">Credit Card</label> \
+						<input type="number" name="searchCreditCard" id="searchCreditCard" value="" /> \
+					</div> \
+				</div> \
+				<div class="ui-block-a"> \
+					<div data-role="fieldcontain"> \
+						<label for="searchDateFrom">Date From</label> \
+						<input type="text" name="searchDateFrom" id="searchDateFrom" value="" placeholder="mm/dd/yyyy" maxlength="10" onkeyup="mask_onValueChanged();" onfocus="mask_onSetFocus(this, \'99/99/9999\');" onblur="mask_onKillFocus();" /> \
+					</div> \
+				</div> \
+				<div class="ui-block-b"> \
+					<div data-role="fieldcontain"> \
+						<label for="searchDateTo">Date To</label> \
+						<input type="text" name="searchDateTo" id="searchDateTo" value="" placeholder="mm/dd/yyyy" maxlength="10" onkeyup="mask_onValueChanged();" onfocus="mask_onSetFocus(this, \'99/99/9999\');" onblur="mask_onKillFocus();" /> \
+					</div> \
+				</div> \
+				<div class="ui-block-b"> \
+					<div data-role="fieldcontain"> \
+						<input type="button" data-theme="b" name="submitCustomerSearch" id="submitCustomerSearch" value="Search Customers" onClick="searchCustomers();" /> \
+					</div> \
+				</div> \
+			</div> \
+		</form> \
+		<div id="customerSearchResults"></div>';
+		
+	$('#searchPageContent').html(searchPageContent).trigger('create');
 }
 
 var searchCustomers = function() {
@@ -359,6 +422,7 @@ var searchCustomers = function() {
 
 
 var defaultReports = function() {
+	$('#reportsPageContent').html('<input type="hidden" name="reportShowTimingID" id="reportShowTimingID" value="0" />');
 	updateReport(false);
 }
 
