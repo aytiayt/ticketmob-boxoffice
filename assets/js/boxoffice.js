@@ -31,26 +31,6 @@ $(document).ready(function() {
 	$.boxofficeSettings.currOrientation = 'landscape';
 	$.boxofficeSettings.defaultCheckIn = false;
  
-
-	// For testing on firefox				
-	/*
-	if (navigator.userAgent.indexOf("Firefox")!=-1) {
-		$.boxofficeUser.brandProperty = "LS";
-		$.boxofficeUser.brandPropertySite = "laughstub.com";
-		$.boxofficeUser.datasource = "LaughStub";
-		$.boxofficeUser.userID = 14680769;
-		$.boxofficeUser.firstName = "Erin";
-		$.boxofficeUser.lastName = "Improv";
-		$.boxofficeUser.emailAddress = "erin@improv.com";
-		$.boxofficeUser.userType = 7;
-		$.boxofficeUser.venueID = 43;
-		$.boxofficeUser.venueName = "Irvine Improv";
-		$.boxofficeUser.venuesOwned = "189,190,44,109,196,200,201,220,1350,1837,375,1677,658,61,9,156,193,202,43,198,2139,197,194,45,203,204,195,990,199,685,127,654,191";
-		defaultAllPages();
-		$.mobile.changePage($("#ticketholdersPage"), { transition: "none"} );	
-	}
-	*/
-	
 	// create a store
 	var data = new Lawnchair('data');
 
@@ -96,6 +76,18 @@ $(document).ready(function() {
 		
 	});
 	
+	// create a store for settings
+	var settings = new Lawnchair('settings');
+
+	// look to see if brand property and userid are stored in local store already, if so, we can log the person in and skip login.
+	settings.get('preferences',function(result) {
+		//console.log(result);
+		if(result) {
+			$.boxofficeSettings.defaultCheckIn = result.defaultCheckIn;
+		}
+		defaultSettings();
+	});
+
 	
 	$('#loginButton').click(function() {
 		userLogin($('#username').val(),$('#password').val(),$('input[name="brandProperty"]:checked').val());
@@ -452,22 +444,11 @@ var updateReport = function(showLoading) {
 
 var defaultSettings = function() {
 
-	// create a store
-	var settings = new Lawnchair('settings');
-
-	// look to see if brand property and userid are stored in local store already, if so, we can log the person in and skip login.
-	settings.get('preferences',function(result) {
-		//console.log(result);
-		if(result) {
-			$.boxofficeSettings.defaultCheckIn = result.defaultCheckIn;
+	var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=settingscontent&venueID='+$.boxofficeUser.venueID+'&defaultCheckIn='+$.boxofficeSettings.defaultCheckIn+'&venuesOwned='+$.boxofficeUser.venuesOwned+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
+	$.getJSON(surl, function(data) {
+		if(data.SUCCESS) {
+			$('#settingsPageContent').html(data.HTML).trigger("create");
 		}
-		var surl = 'http://www.ticketmob.com/ipadbo/services.cfc?method=settingscontent&venueID='+$.boxofficeUser.venueID+'&defaultCheckIn='+$.boxofficeSettings.defaultCheckIn+'&venuesOwned='+$.boxofficeUser.venuesOwned+'&datasource='+$.boxofficeUser.datasource+'&callback=?';
-		$.getJSON(surl, function(data) {
-			if(data.SUCCESS) {
-				$('#settingsPageContent').html(data.HTML).trigger("create");
-			}
-		});
-		
 	});
 	
 }
