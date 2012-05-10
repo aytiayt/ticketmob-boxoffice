@@ -1,6 +1,11 @@
-.ui-mobile, .ui-mobile .ui-page, .ui-mobile [data-role="page"],
-.ui-mobile [data-role="dialog"], .ui-page, .ui-mobile .ui-page-active {
-      overflow: hidden;
+.ui-mobile, 
+.ui-mobile .ui-page, 
+.ui-mobile [data-role="page"],
+.ui-mobile [data-role="dialog"], 
+.ui-page, 
+.ui-mobile 
+.ui-page-active {
+      /* overflow: hidden; */
       -webkit-backface-visibility: hidden;
 }
 
