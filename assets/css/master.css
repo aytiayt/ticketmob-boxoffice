@@ -7,9 +7,8 @@
 
 
 /* custom icons */
-.ui-icon-money span.ui-icon-home { background-position: -792px 50% !important; }
-.ui-icon-user span.ui-icon-home { background-position: -828px 50% !important; }
-
+.ui-icon-money { background-position: -792px 50% !important; }
+.ui-icon-user { background-position: -828px 50% !important; }
 
 
 

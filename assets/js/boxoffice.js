@@ -12,6 +12,7 @@ $(document).bind("mobileinit", function() {
 
 $(document).ready(function() {
 
+
 	// Local jQuery data structs for app
 	$.boxofficeUser = {};
 	$.boxofficeUser.brandProperty = "";
