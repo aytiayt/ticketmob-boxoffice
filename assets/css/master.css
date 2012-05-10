@@ -194,7 +194,8 @@ span.calendarCount { font-size: 12px; border: 1px solid #111; border-radius: 10p
 #sellTicketPageContent .optionsColumnContent h2 { font-size: 26px; font-weight: lighter; margin: 0 0 5px 0; height: 30px; }
 
 #sellTicketPageContent #ticketContainer { border-bottom: 1px dashed #aaa; height: 154px; margin: 10px 0 10px 0; padding: 0 0 10px 0; overflow: auto; }
-#sellTicketPageContent ul.ticketQtyList input.qtyField { background: #fff; width: 20px; margin: 0; text-align: center; display: inline-block; padding: 0 3px; height: 24px; margin: 0 1px 0 0; float: left; }
+#sellTicketPageContent ul.ticketQtyList input.qtyField,
+#sellTicketPageContent ul.ticketQtyList input.qtyField:disabled { background: #fff; width: 20px; margin: 0; text-align: center; display: inline-block; padding: 0 3px; height: 24px; margin: 0 1px 0 0; float: left; color: #333; border: 1px solid #333; }
 #sellTicketPageContent div.qtyContainer { height: 26px; width: 90px; float: left; }
 #sellTicketPageContent div.qtyContainer .ui-btn-icon-notext { margin: 0 1px 0 0; float: left; }
 #sellTicketPageContent ul.ticketQtyList h3 { color: #CB492F; font-size: 16px; margin: 0 0 0 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 140px; }
