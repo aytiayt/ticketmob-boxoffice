@@ -74,11 +74,13 @@
         <!-- End of Login Page -->
         
         
-        <div data-role="dialog" data-theme="b" id="alertBox">
+        <div data-role="page" data-theme="b" id="alertBox">
             <div data-role="content">
-                <h3 class="alert-1"></h3>
-                <p class="alert-2"></p>
-                <a href="#" data-role="button" data-icon="check" data-rel="back">OK</a>
+            	<div id="alertContent">
+                    <h3 class="alert-1"></h3>
+                    <p class="alert-2"></p>
+	                <a href="#" data-role="button" data-icon="check" data-rel="back">OK</a>
+                </div>
             </div>
         </div>
         
@@ -357,12 +359,14 @@
         <!--- End of Ticket Holders Landscape Page --->
         
         
-        <div data-role="dialog" data-theme="c" id="ticketholderDetails">
+        <div data-role="page" data-theme="c" id="ticketholderDetails">
             <div data-role="header" data-position="fixed">
                 <h1>Ticket Details</h1>
             </div>
             
-            <div data-role="content" id="ticketholderDetailsContent"></div>
+            <div data-role="content">
+            	<div id="ticketholderDetailsContent"></div>
+            </div>
         </div>
         
         

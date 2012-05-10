@@ -6,6 +6,7 @@ $(document).bind("mobileinit", function() {
 	$.mobile.allowCrossDomainPages = true;
 	$.mobile.defaultPageTransition = 'none';
 	$.mobile.defaultDialogTransition = 'none';
+	$.mobile.useFastClick = true;
 	
 });
 

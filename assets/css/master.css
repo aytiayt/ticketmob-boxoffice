@@ -1,3 +1,4 @@
+
 .ui-mobile, 
 .ui-mobile .ui-page, 
 .ui-mobile [data-role="page"],
@@ -5,11 +6,10 @@
 .ui-page, 
 .ui-mobile 
 .ui-page-active {
-      overflow: hidden;
+      /* overflow: hidden; */
       -webkit-backface-visibility: hidden;
 }
 
-#dashboardPage { overflow: auto; }
 
 
 
@@ -51,8 +51,11 @@
 
 
 /* Alert */
+#alertContent,
+#ticketholderDetailsContent { width: 500px; margin: 20px auto; padding: 15px; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; background: #fff; -moz-box-shadow: 0px 0px 12px rgba(0,0,0,.6); -webkit-box-shadow: 0px 0px 12px rgba(0,0,0,.6); box-shadow: 0px 0px 12px rgba(0,0,0,.6); }
+#ticketholderDetailsContent { width: 500px; margin: 20px auto; padding: 15px; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; background: #fff; -moz-box-shadow: 0px 0px 12px rgba(0,0,0,.6); -webkit-box-shadow: 0px 0px 12px rgba(0,0,0,.6); box-shadow: 0px 0px 12px rgba(0,0,0,.6); }
 h3.alert-1 { font-size: 22px; font-weight: bold; }
-p.alert-2 { margin: 10px 0 20px 0; }
+p.alert-2 { margin: 10px auto 20px auto; }
 
 
 
