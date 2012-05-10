@@ -5,10 +5,11 @@
 .ui-page, 
 .ui-mobile 
 .ui-page-active {
-      /* overflow: hidden; */
+      overflow: hidden;
       -webkit-backface-visibility: hidden;
 }
 
+#dashboardPage { overflow: auto; }
 
 
 

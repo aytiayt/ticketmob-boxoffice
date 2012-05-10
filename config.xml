@@ -23,5 +23,6 @@
 	<preference name="target-device" value="tablet" />
 	
 	<gap:splash src="assets/img/splash.png" width="1024" height="768" />
+	<gap:splash src="assets/img/splash-portrait.png" width="768" height="1024" />
 	
 </widget>
